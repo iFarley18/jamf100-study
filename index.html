@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="A no-login Jamf 100 study companion and four original practice exams. Not real exam questions.">
+  <title>Quiz Brian: Jamf 100</title>
+  <style>
+:root {
+  --bg: #f6f1ea;
+  --bg-elev: #fffdf9;
+  --text: #1c1814;
+  --muted: #5c534b;
+  --faint: #7a7269;
+  --line: #e4d9cc;
+  --accent: #8b3e16;
+  --accent-bg: #f3e3d4;
+  --ok: #1b6b43;
+  --ok-bg: #e3f3ea;
+  --bad: #a12828;
+  --bad-bg: #fdeceb;
+  --warn: #8a5a00;
+  --warn-bg: #f8efd6;
+  --shadow: 0 1px 2px rgba(40, 24, 10, 0.06), 0 8px 24px rgba(40, 24, 10, 0.07);
+  --radius: 16px;
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --max: 40rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161412;
+    --bg-elev: #221f1c;
+    --text: #f4efe9;
+    --muted: #c9c0b6;
+    --faint: #9a9188;
+    --line: #3b352f;
+    --accent: #e39a6a;
+    --accent-bg: #3a2a20;
+    --ok: #86d4a8;
+    --ok-bg: #1c3328;
+    --bad: #f0a3a3;
+    --bad-bg: #3a2222;
+    --warn: #e8c56b;
+    --warn-bg: #3a3118;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.28);
+  }
+}
+* { box-sizing: border-box; }
+html { color-scheme: light dark; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 1.125rem;
+  line-height: 1.5;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+code {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  background: var(--accent-bg);
+  border-radius: 4px;
+  padding: 0 0.28em;
+  word-break: break-word;
+}
+a { color: var(--accent); }
+header.app-head {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.head-inner, main, footer.app-foot {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+.head-inner { padding-top: 0.85rem; padding-bottom: 0.75rem; }
+h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.tagline {
+  margin: 0.15rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+.tabs button, .seg button, .btn, .choice {
+  font: inherit;
+  cursor: pointer;
+  border-radius: 999px;
+}
+.tabs button, .seg button {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.85rem;
+  min-height: 44px;
+}
+.tabs button[aria-selected="true"], .seg button[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--bg-elev);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+@media (prefers-color-scheme: dark) {
+  .tabs button[aria-selected="true"], .seg button[aria-pressed="true"] {
+    color: #1c1410;
+  }
+}
+.seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.6rem 0;
+}
+main { padding-top: 1.1rem; padding-bottom: 6.5rem; }
+h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+h3 { margin: 1rem 0 0.4rem; font-size: 1.05rem; }
+p { margin: 0 0 0.85rem; }
+.card {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1rem 1.05rem;
+  box-shadow: var(--shadow);
+  margin: 0 0 1rem;
+}
+.note {
+  background: var(--accent-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  margin: 0 0 1rem;
+  color: var(--text);
+}
+.ok-box, .hint-box {
+  border-radius: var(--radius);
+  padding: 0.95rem 1rem;
+  margin: 0.8rem 0;
+  border: 1px solid var(--line);
+}
+.ok-box { background: var(--ok-bg); }
+.hint-box { background: var(--accent-bg); }
+.ok-box .kicker { color: var(--ok); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.25rem; }
+.hint-box .kicker { color: var(--accent); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.25rem; }
+.meta {
+  color: var(--faint);
+  font-size: 0.92rem;
+  margin-bottom: 0.5rem;
+}
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 1rem;
+  color: var(--muted);
+  font-size: 1rem;
+  margin: 0 0 0.9rem;
+}
+.question {
+  font-size: 1.35rem;
+  line-height: 1.35;
+  font-weight: 650;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+}
+.choices { display: flex; flex-direction: column; gap: 0.55rem; margin: 0 0 1rem; }
+.choice {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  text-align: left;
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--bg-elev);
+  color: var(--text);
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  min-height: 52px;
+  border-radius: 14px;
+}
+.choice .ltr {
+  min-width: 1.4rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.choice[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+.choice.correct {
+  border-color: var(--ok);
+  background: var(--ok-bg);
+}
+.choice.wrong {
+  border-color: var(--bad);
+  background: var(--bad-bg);
+}
+.choice:disabled { cursor: default; }
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.7rem 0;
+}
+.btn {
+  background: var(--bg-elev);
+  color: var(--text);
+  border: 1px solid var(--line);
+  padding: 0.7rem 1.05rem;
+  min-height: 48px;
+  font-weight: 600;
+  border-radius: 12px;
+}
+.btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg-elev);
+}
+@media (prefers-color-scheme: dark) {
+  .btn.primary { color: #1c1410; }
+}
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn.ok { background: var(--ok); border-color: var(--ok); color: #fff; }
+@media (prefers-color-scheme: dark) {
+  .btn.ok { color: #102016; }
+}
+label.toggle, .field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0.7rem 0;
+}
+input[type="checkbox"] { width: 1.2rem; height: 1.2rem; accent-color: var(--accent); }
+select, input[type="number"] {
+  font: inherit;
+  color: var(--text);
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.55rem 0.7rem;
+  min-height: 48px;
+  max-width: 100%;
+}
+details {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.7rem 1rem;
+  margin: 0 0 0.8rem;
+}
+summary { cursor: pointer; font-weight: 650; padding: 0.25rem 0; }
+details p:last-child, details dl { margin-bottom: 0; }
+dl { margin: 0.6rem 0 0; }
+dt { font-weight: 700; margin-top: 0.7rem; }
+dd { margin: 0.15rem 0 0; color: var(--muted); }
+ol.tips { padding-left: 1.2rem; margin: 0.5rem 0 0; }
+ol.tips li { margin: 0 0 0.55rem; }
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  margin: 0 0 1rem;
+}
+.metric {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.75rem 0.85rem;
+}
+.metric .num { font-size: 1.6rem; font-weight: 750; letter-spacing: -0.03em; line-height: 1.1; }
+.metric .lbl { color: var(--muted); font-size: 0.88rem; }
+.metric.ok .num { color: var(--ok); }
+.metric.bad .num { color: var(--bad); }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  margin: 0 0 1rem;
+}
+th, td { text-align: left; padding: 0.5rem 0.4rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th:not(:first-child), td:not(:first-child) { text-align: right; }
+td.bad { color: var(--bad); font-weight: 650; }
+td.warn { color: var(--warn); font-weight: 650; }
+.bar {
+  height: 8px;
+  background: var(--line);
+  border-radius: 99px;
+  overflow: hidden;
+  margin: 0.2rem 0 0.85rem;
+}
+.bar > span { display: block; height: 100%; background: var(--accent); }
+.dock {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 30;
+  background: color-mix(in srgb, var(--bg-elev) 94%, transparent);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--line);
+  padding: 0.65rem 1rem calc(0.65rem + env(safe-area-inset-bottom));
+}
+.dock-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.85rem;
+}
+.dock .status { color: var(--muted); font-size: 0.95rem; flex: 1 1 auto; }
+footer.app-foot {
+  color: var(--faint);
+  font-size: 0.9rem;
+  padding: 1.2rem 1rem 2rem;
+  text-align: center;
+}
+.pass { color: var(--ok); font-weight: 700; }
+.fail { color: var(--bad); font-weight: 700; }
+@media (min-width: 640px) {
+  h1 { font-size: 1.55rem; }
+  .question { font-size: 1.5rem; }
+  .metrics { grid-template-columns: repeat(4, 1fr); }
+}
+
+  </style>
+</head>
+<body>
+  <header class="app-head"></header>
+  <main id="app"></main>
+  <div id="dock"></div>
+  <footer class="app-foot">Original practice questions, not real exam content.</footer>
+  <script>
+const BANK = {"topics":{"DF":"Device fundamentals","APL":"Apple services & MDM","JPI":"Jamf Pro interface & setup","ENR":"Enrollment","INV":"Inventory & searches","GRP":"Smart & static groups","CFG":"Config profiles & updates","DDM":"Blueprints & compliance","POL":"Policies & Self Service","SCR":"Scripts & command line"},"exams":{"A":[{"id":"A0","exam":"A","topic":"DF","q":"In macOS System Settings, where can you quickly find the Mac's serial number, chip and macOS version?","opts":["Privacy & Security","General > About","Users & Groups","General > Storage"],"ans":1,"why":"General > About shows the model, chip, serial number and macOS version.","hint":"It's under General, on the screen that lists the Mac's identity details — not storage, and not user accounts."},{"id":"A1","exam":"A","topic":"DF","q":"On an iPhone, where in Settings can a user see the MDM profile that enrolled the device?","opts":["General > VPN & Device Management","Privacy & Security > Tracking","Screen Time","General > About"],"ans":0,"why":"Installed profiles, including the MDM enrollment profile, are listed under General > VPN & Device Management.","hint":"Look under General for the screen that lists management profiles, not About or Screen Time."},{"id":"A2","exam":"A","topic":"DF","q":"Which built-in macOS command-line tool reads and writes values in preference domains?","opts":["`defaults`","`diskutil`","`launchctl`","`softwareupdate`"],"ans":0,"why":"`defaults read` and `defaults write` work through the preferences system, so cached values (held by `cfprefsd`) stay consistent.","hint":"The tool's name is almost the same as the preference files it reads and writes. Think 'read' and 'write'."},{"id":"A3","exam":"A","topic":"DF","q":"Which macOS feature encrypts the entire startup disk to protect data if the Mac is lost or stolen?","opts":["Gatekeeper","FileVault","System Integrity Protection","XProtect"],"ans":1,"why":"FileVault provides full-disk encryption; Gatekeeper and XProtect deal with app safety, and SIP protects system files.","hint":"One of these encrypts the whole disk. The others are about app safety or protecting system files."},{"id":"A4","exam":"A","topic":"DF","q":"Which folder holds preference files that apply to every user on a Mac, rather than a single user?","opts":["~/Library/Preferences","/Library/Preferences","/Users/Shared/Preferences","/System/Applications"],"ans":1,"why":"/Library is the computer-level library shared by all users; ~/Library belongs to one user.","hint":"On a Mac, a path that starts with a tilde (~) belongs to one user. The computer-wide library does not use a tilde."},{"id":"A5","exam":"A","topic":"DF","q":"What is the main job of Gatekeeper in macOS?","opts":["Encrypting the startup disk","Checking that downloaded apps come from identified developers and are notarized","Backing up files to an external drive","Blocking websites in Safari"],"ans":1,"why":"Gatekeeper checks an app's signature and notarization before it opens for the first time.","hint":"This feature checks an app before it opens for the first time — signature and notarization — not encryption or backups."},{"id":"A6","exam":"A","topic":"DF","q":"On an iPhone, where can a user see which apps have access to Location Services?","opts":["General > Background App Refresh","Privacy & Security > Location Services","Screen Time > Downtime","Control Center"],"ans":1,"why":"Per-app location access is listed under Settings > Privacy & Security > Location Services.","hint":"Location access is a privacy permission. Look in the Privacy & Security area, not Screen Time or Control Center."},{"id":"A7","exam":"A","topic":"APL","q":"What role does the Apple Push Notification service (APNs) play in device management?","opts":["It delivers MDM commands and their payloads directly to devices","It tells devices to check in with their MDM server, which then sends the commands","It stores device inventory for Jamf Pro","It hosts app installers for Jamf Pro"],"ans":1,"why":"APNs only sends a lightweight wake-up; the device then connects to Jamf Pro to collect its queued commands.","hint":"Think of it as a tap on the shoulder, not the truck that delivers the actual instructions. The device then talks to Jamf Pro."},{"id":"A8","exam":"A","topic":"APL","q":"How long is an MDM push certificate valid before it must be renewed?","opts":["30 days","90 days","1 year","5 years"],"ans":2,"why":"Push certificates expire after one year and must be renewed with the same Apple Account.","hint":"It does expire, and when you renew it you must use the same Apple Account as before. The period is measured in years, not days."},{"id":"A9","exam":"A","topic":"APL","q":"Which Apple program lets businesses buy apps in volume, set up Automated Device Enrollment and create Managed Apple Accounts?","opts":["Apple Business (formerly Apple Business Manager)","Apple Developer Program","AppleCare for Enterprise","Apple Configurator"],"ans":0,"why":"Apple Business is the web portal for device enrollment, Apps and Books, and Managed Apple Accounts for businesses.","hint":"It's Apple's business portal for buying apps, enrolling company devices, and creating work Apple Accounts — not AppleCare or the developer program."},{"id":"A10","exam":"A","topic":"APL","q":"Which statement about supervision is true?","opts":["Supervision gives an organization more management control over devices it owns","Supervision is required to install any app on an iPhone","Supervision only applies to personally owned devices","Supervision removes the need for a push certificate"],"ans":0,"why":"Supervision is for organization-owned devices and unlocks extra restrictions and commands.","hint":"This is about organization-owned devices and extra control for IT, not personal phones and not a replacement for the push certificate."},{"id":"A11","exam":"A","topic":"APL","q":"Which TCP port do Apple devices primarily use to reach APNs, with 443 as a fallback?","opts":["22","80","5223","8443"],"ans":2,"why":"Devices keep a connection to APNs on TCP 5223 and can fall back to 443.","hint":"The main port is not a typical web port (80 or 443). 443 is only the fallback. Think of the port devices keep open for Apple push."},{"id":"A12","exam":"A","topic":"APL","q":"Which MDM feature for iPhone and iPad requires the device to be supervised?","opts":["Lost Mode","Sending an Update Inventory command","Installing a Wi-Fi profile","Removing a managed app"],"ans":0,"why":"Lost Mode is only available on supervised iPhone and iPad.","hint":"Most everyday management works without this extra status. The feature that locks a missing iPhone or iPad is the one that needs it."},{"id":"A13","exam":"A","topic":"JPI","q":"Which Jamf Pro privilege set gives read-only access to everything?","opts":["Administrator","Auditor","Enrollment Only","Custom"],"ans":1,"why":"Auditor can read all objects but cannot create, update or delete.","hint":"The name sounds like someone who inspects the books but does not change them — read everything, change nothing."},{"id":"A14","exam":"A","topic":"JPI","q":"What do sites let a Jamf Pro administrator do?","opts":["Limit Jamf Pro users to managing only the devices and objects in their part of the organization","Host packages in several data centers","Create Wi-Fi networks","Change Apple Business locations"],"ans":0,"why":"Sites partition devices, users and objects so site-level admins see only their own.","hint":"This is about splitting one Jamf Pro so different teams only see their own devices and objects, not about hosting files or Wi-Fi."},{"id":"A15","exam":"A","topic":"JPI","q":"What is the main advantage of Jamf Pro user groups (groups of Jamf Pro accounts)?","opts":["Assigning the same privileges to many Jamf Pro accounts at once","Grouping devices for scope","Grouping apps into categories","Sending push notifications"],"ans":0,"why":"A Jamf Pro user group carries one set of privileges that every member account inherits.","hint":"These are groups of Jamf Pro login accounts, not groups of devices. The payoff is giving many people the same permissions at once."},{"id":"A16","exam":"A","topic":"JPI","q":"In current Jamf Pro, where are scripts stored?","opts":["On the cloud distribution point with packages","In the Jamf Pro database","On each managed computer before upload","In Apple Business"],"ans":1,"why":"Scripts are added in Jamf Pro and kept in its database; packages live on a distribution point.","hint":"Packages live on a file-hosting location. Scripts are added in Jamf Pro itself and kept with its other records."},{"id":"A17","exam":"A","topic":"JPI","q":"How many sites can a single computer belong to at once?","opts":["One","Two","Up to five","Unlimited"],"ans":0,"why":"A device or object belongs to one site (or none).","hint":"A computer is not split across several of these at once. It's one assignment, or none."},{"id":"A18","exam":"A","topic":"JPI","q":"Why would you configure an SMTP server in Jamf Pro?","opts":["So Jamf Pro can send email, such as notifications and enrollment invitations","So devices can reach APNs","To host packages","To sync with Apple Business"],"ans":0,"why":"SMTP lets Jamf Pro send email, for example enrollment invitations and smart group change notices.","hint":"SMTP is the standard way software sends email. Think invitations and notices, not Apple push or package hosting."},{"id":"A19","exam":"A","topic":"ENR","q":"In a PreStage enrollment, which setting keeps a user from skipping MDM enrollment during Setup Assistant?","opts":["Make MDM Profile Mandatory","Allow Pairing","Enable Location Services","Show Restore pane"],"ans":0,"why":"With the MDM profile mandatory, the user can't finish Setup Assistant without enrolling.","hint":"The setting's name is about the management profile itself — making enrollment something the user cannot skip in Setup Assistant."},{"id":"A20","exam":"A","topic":"ENR","q":"Users can enroll a Mac through user-initiated enrollment by going to which address?","opts":["Their Jamf Pro URL followed by /enroll","appleid.apple.com","business.apple.com","The App Store"],"ans":0,"why":"The enrollment portal lives at the Jamf Pro URL with /enroll appended.","hint":"It's a page on your own Jamf Pro site, not an Apple website. The path is a short word for signing up the device."},{"id":"A21","exam":"A","topic":"ENR","q":"Which information can Jamf Pro NOT collect from a personally owned device enrolled with User Enrollment?","opts":["The device's serial number","The OS version","The managed apps it installed","The device model"],"ans":0,"why":"User Enrollment protects privacy, so hardware identifiers such as the serial number and UDID are not reported.","hint":"This enrollment is designed to protect personal privacy. IT can see general facts, but not unique hardware identifiers."},{"id":"A22","exam":"A","topic":"ENR","q":"iPhones and iPads enrolled through Automated Device Enrollment are supervised.","opts":["True","False"],"ans":0,"why":"Since iOS 13, devices enrolled with ADE are always supervised.","hint":"Think about Automated Device Enrollment since iOS 13: does it change how much control IT has over company iPhones and iPads?"},{"id":"A23","exam":"A","topic":"ENR","q":"What does an enrollment customization add to a PreStage enrollment?","opts":["Branded panes, such as text or single sign-on authentication, during Setup Assistant","Extra storage on the device","A faster Wi-Fi connection","Free App Store apps"],"ans":0,"why":"Enrollment customizations add your own panes, such as SSO sign-in or text, to the ADE setup flow.","hint":"This is about what the person sees during first-time setup — your own screens or a sign-in — not about storage or Wi-Fi speed."},{"id":"A24","exam":"A","topic":"ENR","q":"After assigning a device to Jamf Pro's MDM server in Apple Business, where can you see it in Jamf Pro before it enrolls?","opts":["In the Automated Device Enrollment instance and PreStage scope","In Self Service","In a policy log","It is not visible until it enrolls"],"ans":0,"why":"Jamf Pro syncs assigned serial numbers, which then appear in ADE and can be scoped to a PreStage.","hint":"Jamf Pro learns the serial numbers from Apple before the device is set up. Look in the enrollment assignment area, not in Self Service."},{"id":"A25","exam":"A","topic":"INV","q":"Which Terminal command forces a Mac to submit an inventory update to Jamf Pro right away?","opts":["`sudo jamf recon`","`sudo jamf policy`","`softwareupdate -l`","`defaults read`"],"ans":0,"why":"`jamf recon` collects and submits inventory; `jamf policy` checks for policies.","hint":"One jamf command collects and sends inventory; another checks for policies. You want the inventory one, and it needs admin rights."},{"id":"A26","exam":"A","topic":"INV","q":"Which is NOT an input type for a computer extension attribute?","opts":["Text field","Pop-up menu","Script","Smart group"],"ans":3,"why":"Extension attributes take input from a text field, pop-up menu, script or directory attribute; a smart group is not one.","hint":"Extension attributes are custom inventory fields. Their input comes from a field, a menu, a script, or the directory — not from a device group."},{"id":"A27","exam":"A","topic":"INV","q":"In a computer's inventory record, which section lists installed apps and their versions?","opts":["Applications","Purchasing","User and Location","Extension Attributes"],"ans":0,"why":"The Applications category lists each installed app, its version and path.","hint":"Look for the inventory category whose name is simply the apps themselves, not purchasing or the user."},{"id":"A28","exam":"A","topic":"INV","q":"What is Jamf Pro's default recurring check-in frequency for computers?","opts":["Every 5 minutes","Every 15 minutes","Every hour","Once a day"],"ans":1,"why":"Computers check in every 15 minutes by default; it can be changed in check-in settings.","hint":"The default is a fraction of an hour, not once a day or every few minutes. You can change it in check-in settings."},{"id":"A29","exam":"A","topic":"INV","q":"What does Inventory Preload let you do?","opts":["Upload a CSV of details, such as user and location, before devices enroll","Install apps before enrollment","Pre-cache macOS updates","Preload Self Service icons"],"ans":0,"why":"Inventory Preload matches CSV rows to serial numbers and fills in inventory when devices enroll.","hint":"This is a spreadsheet you upload ahead of time, matched by serial number, to fill in user and location when the device enrolls — not to install apps."},{"id":"A30","exam":"A","topic":"GRP","q":"What makes a smart group different from a static group?","opts":["Smart group membership updates automatically from criteria; static membership is set by hand","Smart groups only work for iPhones","Static groups update automatically","Smart groups cannot be used for scope"],"ans":0,"why":"Smart groups are criteria-driven and dynamic; static groups are hand-picked.","hint":"One type updates itself from rules. The other is a list someone picks by hand."},{"id":"A31","exam":"A","topic":"GRP","q":"A policy targets All Computers and excludes the smart group Executives. What happens to a computer that is in both?","opts":["The policy does not apply because exclusions take precedence","The policy applies because targets win","It applies only at login","Jamf Pro shows an error"],"ans":0,"why":"In Jamf Pro scope, exclusions always override targets.","hint":"In scope, think about which rule wins when a device is both included and left out. One of those always beats the other."},{"id":"A32","exam":"A","topic":"GRP","q":"You can manually add a computer to a smart group.","opts":["True","False"],"ans":1,"why":"Smart group membership comes only from criteria; use a static group to pick computers by hand.","hint":"Remember how a smart group's membership is decided — is it a hand-picked list, or do rules decide who is in it?"},{"id":"A33","exam":"A","topic":"GRP","q":"Which operator, used with the Application Title criterion, finds computers that are missing a specific app?","opts":["`does not have`","`is`","`like`","`greater than`"],"ans":0,"why":"`has` and `does not have` test whether an app is present in inventory.","hint":"You need the operator that tests whether an app is present in inventory — specifically, the one that means the app is missing."},{"id":"A34","exam":"A","topic":"CFG","q":"What is a configuration profile?","opts":["An XML file (.mobileconfig) of payloads that apply settings to a device","A script that runs at login","A package that installs an app","An inventory report"],"ans":0,"why":"Profiles are XML property lists made of payloads, installed through MDM.","hint":"It's a settings file, not a script or an installer. The extension is the same one Apple uses for management profiles."},{"id":"A35","exam":"A","topic":"CFG","q":"When a device is removed from a configuration profile's scope, the profile is removed from the device.","opts":["True","False"],"ans":0,"why":"Jamf Pro sends a remove command when a device falls out of scope.","hint":"Think about what 'scope' means: when a device no longer qualifies, does Jamf Pro leave the settings in place or take them off?"},{"id":"A36","exam":"A","topic":"CFG","q":"Which payload sends a Mac's FileVault personal recovery key to Jamf Pro?","opts":["FileVault Recovery Key Escrow","Restrictions","Login Window","Certificate"],"ans":0,"why":"The escrow payload sends the personal recovery key to Jamf Pro, where it is shown in inventory.","hint":"The payload's name is about holding onto a FileVault recovery key in Jamf Pro so IT can find it later in inventory."},{"id":"A37","exam":"A","topic":"CFG","q":"Which payload can hide software updates from users for up to 90 days?","opts":["Restrictions","Wi-Fi","Dock","Passcode"],"ans":0,"why":"The Restrictions payload has a software update deferral of 1 to 90 days.","hint":"This lives in the payload that turns features off or delays them — and the delay can be as long as 90 days."},{"id":"A38","exam":"A","topic":"CFG","q":"Which macOS payload can show a message at the login window?","opts":["Login Window","Dock","Notifications","Certificate"],"ans":0,"why":"The Login Window payload controls the login screen, including a banner message.","hint":"Think about the screen you see before anyone logs in — the payload is named after that window."},{"id":"A39","exam":"A","topic":"DDM","q":"Blueprints in Jamf Pro are built on which Apple technology?","opts":["Declarative Device Management","Apple Configurator","Rosetta","Bonjour"],"ans":0,"why":"Blueprints deploy declarations, so devices manage their own state and report back.","hint":"The newer Apple approach lets the device keep its own state and report back, instead of waiting for every command. Blueprints are built on that."},{"id":"A40","exam":"A","topic":"DDM","q":"Compliance Benchmarks templates are based on which project?","opts":["macOS Security Compliance Project (mSCP)","OWASP Top 10","Jamf Marketplace","Apple Configurator"],"ans":0,"why":"Compliance Benchmarks start from mSCP baselines and let you choose and tune rules.","hint":"The templates come from a macOS security baseline project, not from OWASP, the Jamf Marketplace, or Apple Configurator."},{"id":"A41","exam":"A","topic":"POL","q":"Which policy trigger runs a policy at the computer's regular check-in with Jamf Pro?","opts":["Recurring Check-in","Login","Enrollment Complete","Custom"],"ans":0,"why":"Recurring Check-in fires on the check-in interval (every 15 minutes by default).","hint":"It's the trigger named after the computer's regular visit to Jamf Pro — by default that visit happens every 15 minutes."},{"id":"A42","exam":"A","topic":"POL","q":"A policy uses the custom event `installzoom`. Which command runs it on a Mac?","opts":["`sudo jamf policy -event installzoom`","`sudo jamf recon installzoom`","`defaults write installzoom`","`softwareupdate -i installzoom`"],"ans":0,"why":"Custom triggers are called with `jamf policy -event` followed by the event name.","hint":"Custom triggers are started with the policy command plus an event flag, then the event name."},{"id":"A43","exam":"A","topic":"POL","q":"Which policy payload installs a software package?","opts":["Packages","Maintenance","Restart Options","Printers"],"ans":0,"why":"The Packages payload installs, caches or installs cached packages.","hint":"The payload is named after the installer files themselves."},{"id":"A44","exam":"A","topic":"POL","q":"In a policy's Packages payload, what does the Cache action do?","opts":["Downloads the package to the computer without installing it","Installs it immediately","Deletes it","Uploads it to the JCDS"],"ans":0,"why":"Cache stores it on the Mac so a later policy can use Install Cached.","hint":"This action only stores the installer on the Mac for later. A different action actually puts the software on."},{"id":"A45","exam":"A","topic":"POL","q":"A policy can be set to automatically retry if it fails.","opts":["True","False"],"ans":0,"why":"Policies have a retry option that sets the event to retry on and the number of attempts.","hint":"Look in the policy for an option about trying again after a failure — you can set how many attempts and on which event."},{"id":"A46","exam":"A","topic":"POL","q":"Which policy setting lets a user postpone a policy?","opts":["User Interaction (deferral)","Client-side limitations","Network segments","Categories"],"ans":0,"why":"User Interaction can show messages and allow deferral until a set limit.","hint":"This is the setting that talks to the person at the computer — messages and a chance to postpone."},{"id":"A47","exam":"A","topic":"SCR","q":"Which first line tells macOS to run a script with zsh?","opts":["`#!/bin/zsh`","`// zsh`","`<zsh>`","`run zsh`"],"ans":0,"why":"The shebang line names the interpreter that runs the script.","hint":"The first line of a script starts with a hash and an exclamation point, then the path to the shell you want."},{"id":"A48","exam":"A","topic":"SCR","q":"What does `sudo` do in front of a command?","opts":["Runs the command with root privileges","Shows the manual","Lists files","Logs out the user"],"ans":0,"why":"`sudo` runs a command as the superuser after admin authentication.","hint":"This prefix runs the command with the highest level of permission on the Mac, after an admin signs in."},{"id":"A49","exam":"A","topic":"SCR","q":"In a Jamf Pro policy log, which script exit code means success?","opts":["0","1","255","-1"],"ans":0,"why":"Exit code 0 means success; any non-zero code is treated as a failure.","hint":"Success is the number programmers traditionally treat as 'all good' — not 1, and not a negative number."}],"B":[{"id":"B0","exam":"B","topic":"DF","q":"What is the default keyboard shortcut to open Spotlight on a Mac?","opts":["Command-Tab","Command-Space","Option-Command-Esc","Shift-Command-3"],"ans":1,"why":"Command-Space opens Spotlight; Command-Tab switches apps.","hint":"It's the shortcut that opens search on a Mac, not the one that switches apps or takes a screenshot."},{"id":"B1","exam":"B","topic":"DF","q":"Where does macOS store preference files that belong only to the logged-in user?","opts":["/Library/Preferences","/System/Library/Preferences","~/Library/Preferences","/Applications/Utilities"],"ans":2,"why":"The tilde means the user's home folder, so ~/Library is that user's own library.","hint":"The tilde (~) means 'this user's home folder.' That is where one person's own preference files live."},{"id":"B2","exam":"B","topic":"DF","q":"Which macOS app lets you view and search system and app log messages?","opts":["Console","Activity Monitor","Script Editor","Disk Utility"],"ans":0,"why":"Console shows the unified log and crash reports.","hint":"The app's name sounds like the place you go to read messages and crash reports — not the one that shows CPU use."},{"id":"B3","exam":"B","topic":"DF","q":"What is the default file system for the startup disk on current Macs?","opts":["HFS+ (Mac OS Extended)","FAT32","APFS","exFAT"],"ans":2,"why":"Apple File System has been the default for startup volumes since macOS High Sierra.","hint":"Apple switched the default startup format starting with macOS High Sierra. It's Apple's newer format, not the older HFS+ or a Windows format."},{"id":"B4","exam":"B","topic":"DF","q":"Where on an iPad can you find the iPadOS version, model and serial number?","opts":["Settings > General > About","Settings > Privacy & Security","Settings > Screen Time","Settings > Accessibility"],"ans":0,"why":"General > About lists the software version, model and serial number.","hint":"Same idea as on a Mac: under General, open the screen that lists the device's identity details."},{"id":"B5","exam":"B","topic":"DF","q":"What does Activity Monitor show on a Mac?","opts":["Recent Jamf Pro policy logs","Running processes and their CPU, memory, energy, disk and network use","Installed configuration profiles","Wi-Fi networks in range"],"ans":1,"why":"Activity Monitor lists processes and resource use, and can quit a process.","hint":"This app is about what is running right now and how hard the Mac is working — CPU, memory, energy, disk, and network."},{"id":"B6","exam":"B","topic":"DF","q":"In recent macOS versions, where can a user review apps that open at login and items allowed in the background?","opts":["General > Login Items","Privacy & Security > Full Disk Access","Desktop & Dock","Control Center"],"ans":0,"why":"Login and background items are under General > Login Items (called Login Items & Extensions in newer releases).","hint":"In recent macOS, this is under General. It's the list of apps that start when you log in, and items allowed to run in the background."},{"id":"B7","exam":"B","topic":"APL","q":"An organization's push certificate expires, and a new one is created with a different Apple Account. What happens?","opts":["Devices switch to the new certificate automatically","Enrolled devices lose MDM communication and must be re-enrolled","Only Macs need to be re-enrolled","Jamf Pro restores the old certificate on its own"],"ans":1,"why":"A certificate from a different Apple Account has a new topic, so existing devices can't be reached; always renew with the original account.","hint":"The new certificate has a different identity than the old one, so already-enrolled devices can no longer be reached. Renewal must use the original Apple Account."},{"id":"B8","exam":"B","topic":"APL","q":"Which Apple program provides Automated Device Enrollment, Apps and Books, and Managed Apple Accounts for schools?","opts":["Apple School Manager","Apple Business Essentials","Apple Teacher","Classroom"],"ans":0,"why":"Apple School Manager is the education counterpart of Apple Business.","hint":"It's the education version of Apple's enrollment and purchasing portal — the school counterpart to the business one."},{"id":"B9","exam":"B","topic":"APL","q":"What is Apps and Books (formerly the Volume Purchase Program) used for?","opts":["Buying app and book licenses in volume for managed distribution","Creating developer certificates","Viewing AppleCare repair status","Hosting in-house apps"],"ans":0,"why":"Apps and Books buys licenses that Jamf Pro assigns to devices or users.","hint":"This is how an organization buys app and book licenses in bulk so Jamf Pro can assign them. It is not AppleCare or developer certificates."},{"id":"B10","exam":"B","topic":"APL","q":"A Mac was bought from a retailer outside the organization's Apple Business account. Which tool can add it so it can use Automated Device Enrollment?","opts":["Apple Configurator","Migration Assistant","Self Service","Activity Monitor"],"ans":0,"why":"Apple Configurator (on iPhone for Macs, or on Mac for iPhone and iPad) can add devices to Apple Business or Apple School Manager.","hint":"There's an Apple tool, often thought of for iPhones, that can also add a Mac to Apple Business so Automated Device Enrollment can be used."},{"id":"B11","exam":"B","topic":"APL","q":"If a user removes the MDM profile from a device, the device is no longer managed by Jamf Pro.","opts":["True","False"],"ans":0,"why":"The MDM profile is the management relationship; removing it unenrolls the device.","hint":"The management profile is the relationship itself. What happens to that relationship if the user deletes the profile?"},{"id":"B12","exam":"B","topic":"APL","q":"On a supervised device, how does MDM help with Activation Lock?","opts":["It can retrieve a bypass code so IT can clear Activation Lock after a wipe","It permanently disables Find My for all users","It stores the user's Apple Account password in Jamf Pro","MDM cannot interact with Activation Lock"],"ans":0,"why":"For supervised devices, Jamf Pro can collect a bypass code to clear Activation Lock.","hint":"For supervised devices, Jamf Pro can collect a special code so IT can clear the lock after a wipe — it does not store the user's password."},{"id":"B13","exam":"B","topic":"JPI","q":"What can a Jamf Pro account with the Enrollment Only privilege set do?","opts":["Enroll devices but nothing else in Jamf Pro","View all inventory read-only","Create policies","Manage Jamf Pro settings"],"ans":0,"why":"Enrollment Only accounts can sign in to the enrollment portal and enroll devices only.","hint":"The name of this privilege set tells you the only job it can do: get devices into Jamf Pro, and nothing else."},{"id":"B14","exam":"B","topic":"JPI","q":"What can network segments in Jamf Pro be used for?","opts":["Assigning a building, department or distribution point based on a device's IP address","Encrypting network traffic","Creating VLANs on switches","Blocking websites"],"ans":0,"why":"A network segment is an IP range that can set a building, department or default distribution point.","hint":"This is an IP address range. Jamf Pro can use it to fill in a building or department, or to pick which file server a Mac should use."},{"id":"B15","exam":"B","topic":"JPI","q":"What does integrating Jamf Pro with a directory service (LDAP or a cloud identity provider) let you do?","opts":["Look up users to fill in User and Location and use directory groups in scope","Skip APNs","Store packages","Renew the ADE token"],"ans":0,"why":"Directory lookups fill user details and let you scope or limit by directory users and groups.","hint":"Connecting to a company directory lets Jamf Pro look up people — fill in user details and use directory groups when choosing who gets something."},{"id":"B16","exam":"B","topic":"JPI","q":"Which Jamf Pro setting keeps a log of the changes Jamf Pro users make to objects?","opts":["Change Management","Inventory Collection","Check-in","Self Service"],"ans":0,"why":"Change Management logs who changed what, locally or to a syslog server.","hint":"The setting's name is about recording who changed what in Jamf Pro, not about inventory or check-in."},{"id":"B17","exam":"B","topic":"JPI","q":"When creating a Jamf Pro user account, what is the difference between Full Access and Site Access?","opts":["Full Access covers the whole Jamf Pro server; Site Access limits the account to one site","Full Access is read-only","Site Access gives more privileges than Full Access","There is no difference"],"ans":0,"why":"The access level sets the reach of the account; the privilege set sets what it can do.","hint":"One level covers the whole server. The other limits the account to one slice of the organization. Privileges are a separate choice."},{"id":"B18","exam":"B","topic":"JPI","q":"Which is a typical reason Jamf Pro shows an alert in its notifications?","opts":["The push certificate or a token is about to expire","A user opened Safari","A device's battery is low","Apple announced an iOS beta"],"ans":0,"why":"Jamf Pro notifications warn about expiring certificates and tokens, among other server issues.","hint":"These alerts are about the Jamf Pro server itself — things like certificates or tokens that are close to expiring — not a user's Safari or battery."},{"id":"B19","exam":"B","topic":"ENR","q":"After uploading Jamf Pro's public key to Apple Business and creating an MDM server, which file do you download and upload to Jamf Pro?","opts":["Server token (.p7m)","Content token (.vpptoken)","Push certificate (.pem)","Enrollment profile (.mobileconfig)"],"ans":0,"why":"The ADE server token (.p7m) links Jamf Pro to that MDM server in Apple Business.","hint":"After you create the MDM server in Apple Business, you download a server token file and upload that to Jamf Pro. It is not the push certificate or the apps token."},{"id":"B20","exam":"B","topic":"ENR","q":"Enrollment invitations can be sent by email and can be set to expire.","opts":["True","False"],"ans":0,"why":"Invitations can be emailed or shared as a link, and have an expiration date and use limit.","hint":"Think about how those invitations are delivered and whether they can have a time limit or a use limit."},{"id":"B21","exam":"B","topic":"ENR","q":"Where does a user start Account-driven User Enrollment on an iPhone?","opts":["Settings > General > VPN & Device Management > Sign In to Work or School Account","The App Store","Settings > Privacy & Security > Analytics","Settings > Screen Time"],"ans":0,"why":"Account-driven enrollment starts by signing in with a Managed Apple Account in VPN & Device Management.","hint":"The person starts in iPhone Settings, under General, on the device management screen — by signing in with a work or school account."},{"id":"B22","exam":"B","topic":"ENR","q":"Besides the MDM profile, what does enrolling a Mac in Jamf Pro install so the Mac can run policies?","opts":["The jamf binary (management framework)","Apple Configurator","Xcode","Rosetta"],"ans":0,"why":"The jamf binary runs policies, scripts and inventory; MDM alone handles profiles and commands.","hint":"Macs need a small Jamf tool on the computer so policies and scripts can run. Profiles alone are not enough for that."},{"id":"B23","exam":"B","topic":"ENR","q":"On an iPhone enrolled through user-initiated enrollment (not ADE), the user can remove the MDM profile.","opts":["True","False"],"ans":0,"why":"Only ADE can make the MDM profile non-removable.","hint":"The key is how the iPhone was enrolled. Only Automated Device Enrollment can lock the profile so the user cannot remove it."},{"id":"B24","exam":"B","topic":"ENR","q":"A Mac PreStage enrollment can create a local administrator account during Setup Assistant.","opts":["True","False"],"ans":0,"why":"Computer PreStages can create a local admin account and control the user account type.","hint":"Think about what a computer PreStage can set up during first-run setup, including the first account on the Mac."},{"id":"B25","exam":"B","topic":"INV","q":"A mobile device's inventory is updated when Jamf Pro sends it an Update Inventory MDM command.","opts":["True","False"],"ans":0,"why":"Mobile devices report inventory through MDM, either on schedule or on demand.","hint":"iPhones and iPads don't run the Mac inventory command. They report through MDM when Jamf Pro asks, or on a schedule."},{"id":"B26","exam":"B","topic":"INV","q":"What must a script-based extension attribute output so Jamf Pro records the value?","opts":["The value between `<result>` and `</result>` tags","An exit code of 1","A plist file in /tmp","An email to the admin"],"ans":0,"why":"Jamf Pro records whatever is echoed between the result tags.","hint":"The script has to print the value inside a specific pair of tags so Jamf Pro knows what to save."},{"id":"B27","exam":"B","topic":"INV","q":"Where can you see which policies have run on a specific computer?","opts":["The History section of its inventory record (Policy Logs)","Settings > Global","Self Service branding","Apple Business"],"ans":0,"why":"Each computer's History includes policy logs, management history and more.","hint":"Look on that computer's own record, in the section that keeps a history of what has run — including policy logs."},{"id":"B28","exam":"B","topic":"INV","q":"Which extension attribute data type allows 'more than' and 'less than' operators in smart group criteria?","opts":["String","Integer","Pop-up menu","Text field"],"ans":1,"why":"Integer EAs support numeric comparisons; String only supports text matches.","hint":"For 'more than' and 'less than' to work, the custom field has to be stored as a number, not as ordinary text."},{"id":"B29","exam":"B","topic":"INV","q":"The mobile device inventory record shows whether a device is supervised.","opts":["True","False"],"ans":0,"why":"Supervision status is listed in the device's General inventory.","hint":"Think about the General area of a mobile device's inventory record and whether supervision is one of the facts listed there."},{"id":"B30","exam":"B","topic":"GRP","q":"How are devices added to a static group?","opts":["An administrator selects them manually","Automatically when they match criteria","Only through Apple Business","Through the user's Apple Account"],"ans":0,"why":"Static groups are hand-picked lists of devices.","hint":"The word 'static' is the clue: someone chooses the members; they do not appear automatically from rules."},{"id":"B31","exam":"B","topic":"GRP","q":"In smart group criteria, what controls the order in which and/or conditions are evaluated?","opts":["Parentheses","Categories","Sites","Priority numbers"],"ans":0,"why":"Opening and closing parentheses group criteria, like a math expression.","hint":"The same symbols you use in a math expression to group things also control which conditions are evaluated together."},{"id":"B32","exam":"B","topic":"GRP","q":"A smart group can send an email notification when its membership changes.","opts":["True","False"],"ans":0,"why":"Smart groups have a 'Send email notification on membership change' option (needs SMTP).","hint":"Smart groups have an option about email when membership changes. That option needs Jamf Pro to be able to send mail."},{"id":"B33","exam":"B","topic":"GRP","q":"What does the `like` operator do in a smart group criterion?","opts":["Matches values that contain the text you enter","Requires an exact match","Matches only numbers","Excludes the value"],"ans":0,"why":"`like` is a contains match; `is` requires an exact match.","hint":"This operator is a 'contains' match, not an exact match. The exact-match operator is a shorter word."},{"id":"B34","exam":"B","topic":"CFG","q":"Which two distribution methods can a configuration profile use?","opts":["Install Automatically or Make Available in Self Service","Email or AirDrop","Cache or Install Cached","Startup or Logout"],"ans":0,"why":"Profiles are pushed automatically or offered in Self Service.","hint":"A profile is either pushed to the device or offered for the user to install. It is not emailed or cached like a package."},{"id":"B35","exam":"B","topic":"CFG","q":"After editing a deployed profile, Jamf Pro asks how to redistribute. Which choice sends it only to devices newly added to scope?","opts":["Distribute to Newly Assigned Only","Distribute to All","Flush Logs","Reinstall"],"ans":0,"why":"Distribute to All re-sends to every scoped device; Newly Assigned Only skips devices that already have it.","hint":"One choice re-sends the profile to everyone already in scope. The other only sends it to devices that just became eligible."},{"id":"B36","exam":"B","topic":"CFG","q":"Which payload sets minimum passcode length and complexity?","opts":["Passcode","Restrictions","VPN","Home Screen Layout"],"ans":0,"why":"The Passcode payload defines length, complexity, age and attempts.","hint":"The payload is named after the passcode itself — length, complexity, age, and how many tries are allowed."},{"id":"B37","exam":"B","topic":"CFG","q":"Which payload deploys custom preference settings for third-party macOS apps?","opts":["Application & Custom Settings","Dock","Login Items","Energy Saver"],"ans":0,"why":"Application & Custom Settings delivers a plist or a JSON-schema-built set of preferences for a domain.","hint":"This payload is for preference files of third-party Mac apps, not the Dock or login items."},{"id":"B38","exam":"B","topic":"CFG","q":"Which payload deploys a trusted root certificate to devices?","opts":["Certificate","Passcode","Restrictions","Web Clip"],"ans":0,"why":"The Certificate payload installs root, intermediate or identity certificates.","hint":"The payload is simply named after the kind of file you are installing: a trusted certificate."},{"id":"B39","exam":"B","topic":"DDM","q":"One blueprint can be deployed to smart or static groups of computers and mobile devices at the same time.","opts":["True","False"],"ans":0,"why":"A blueprint targets any number of groups across Macs and mobile devices at once.","hint":"Think about whether a blueprint is limited to one type of device, or can target groups of Macs and mobile devices together."},{"id":"B40","exam":"B","topic":"DDM","q":"In Compliance Benchmarks, what does Monitor only mode do?","opts":["Reports pass and fail rates without changing settings","Enforces every rule immediately","Erases devices that fail","Turns off FileVault"],"ans":0,"why":"Monitor only measures compliance; Monitor and enforce applies settings.","hint":"One mode only measures how devices compare to the rules. The other mode also applies settings. This question is about measuring only."},{"id":"B41","exam":"B","topic":"POL","q":"Which execution frequency runs a policy every time its trigger occurs?","opts":["Ongoing","Once per computer","Once every day","Once per user"],"ans":0,"why":"Ongoing has no limit, so it runs on every trigger.","hint":"The frequency name means 'every time the trigger happens' — there is no cap."},{"id":"B42","exam":"B","topic":"POL","q":"A policy set to Once per computer has already run. How can you make it run again on that computer?","opts":["Flush its policy log for that computer","Restart the computer","Rename the policy","Delete the computer record"],"ans":0,"why":"Flushing the log clears the record that it ran, so the policy becomes eligible again.","hint":"The policy remembers it already ran because of a log on that computer. Clearing that record makes it eligible again."},{"id":"B43","exam":"B","topic":"POL","q":"The Maintenance payload's Update Inventory option is enabled by default in a new policy.","opts":["True","False"],"ans":0,"why":"New policies update inventory by default so smart groups reflect the change.","hint":"Think about what a brand-new policy does for inventory, and why that would help smart groups stay up to date."},{"id":"B44","exam":"B","topic":"POL","q":"Which policy setting restricts a policy to certain days or times?","opts":["Client-side limitations","User Interaction","Self Service","Files and Processes"],"ans":0,"why":"Client-side limitations set date and time windows and days to skip.","hint":"This setting limits when the computer is allowed to run the policy — days, times, and days to skip — on the computer's side."},{"id":"B45","exam":"B","topic":"POL","q":"Which policy payload can run a single command or kill a running process?","opts":["Files and Processes","Restart Options","Disk Encryption","Local Accounts"],"ans":0,"why":"Files and Processes can search for and delete files, kill processes, and run a command.","hint":"The payload that can search for files, stop a process, or run one command is named 'Files and Processes'."},{"id":"B46","exam":"B","topic":"POL","q":"What makes a policy appear for users in Self Service?","opts":["Making it available in Self Service and scoping it to their computer","Setting the trigger to Startup","Adding a category only","Setting the frequency to Ongoing"],"ans":0,"why":"Self Service items still follow scope; only scoped computers see them.","hint":"Two things have to be true: it is offered in Self Service, and the computer is in scope. A category or trigger alone is not enough."},{"id":"B47","exam":"B","topic":"SCR","q":"Jamf Pro reserves script parameters 1 to 3. Which parameters are available for your own values?","opts":["4 through 11","1 through 3","0 through 9","12 through 20"],"ans":0,"why":"Parameters 4 to 11 can be filled in the policy; 1 to 3 are the mount point, computer name and username.","hint":"The first three parameter slots are reserved (mount point, computer name, and username). Your own values start after that, up to 11."},{"id":"B48","exam":"B","topic":"SCR","q":"Which command shows the manual page for another command in Terminal?","opts":["`man`","`cat`","`pwd`","`open`"],"ans":0,"why":"`man` followed by a command name shows its documentation.","hint":"The command name is short for 'manual.' You type it in Terminal followed by the name of the command you want to read about."},{"id":"B49","exam":"B","topic":"SCR","q":"Text a script prints with `echo` can appear in the policy log.","opts":["True","False"],"ans":0,"why":"Script output is captured in the policy log, which helps troubleshooting.","hint":"If a script prints text, think about whether that text shows up in the record of the policy run — useful when something goes wrong."}],"C":[{"id":"C0","exam":"C","topic":"DF","q":"Which file format does macOS commonly use to store app and system preferences?","opts":["Property list (.plist)","Disk image (.dmg)","Installer package (.pkg)","Shell script (.sh)"],"ans":0,"why":"Preferences are stored in XML or binary property lists.","hint":"These are preference files, often XML or binary, with an extension that stands for 'property list' — not installers or disk images."},{"id":"C1","exam":"C","topic":"DF","q":"Which macOS app gives a detailed report of a Mac's hardware, software and network configuration?","opts":["System Information","Finder","Migration Assistant","Keychain Access"],"ans":0,"why":"System Information reports hardware, network and software details.","hint":"The app's name sounds like a full report on the Mac itself — hardware, software, and network — not the Finder or Keychain."},{"id":"C2","exam":"C","topic":"DF","q":"Which type of local macOS account can install software for all users and change system-wide settings?","opts":["Standard","Guest","Sharing Only","Administrator"],"ans":3,"why":"Administrator accounts can approve system changes; standard users need admin credentials.","hint":"Only one local account type can approve system-wide changes and install software for everyone. Standard accounts need someone else's approval."},{"id":"C3","exam":"C","topic":"DF","q":"Which file extension is used by macOS installer packages that a Jamf Pro policy can deploy?","opts":[".app",".pkg",".plist",".mobileconfig"],"ans":1,"why":"Installer packages are .pkg; .mobileconfig is a profile and .plist a preference file.","hint":"Jamf Pro policies install this Apple installer format. A .mobileconfig is a profile, and a .plist is a preference file."},{"id":"C4","exam":"C","topic":"DF","q":"On an iPhone, where does a user check for and install an iOS update?","opts":["Settings > General > Software Update","Settings > Apple Account > iCloud","App Store > Updates","Settings > Privacy & Security"],"ans":0,"why":"OS updates are under General > Software Update.","hint":"On iPhone it's under General, on the screen specifically about updating the operating system — not the App Store and not iCloud."},{"id":"C5","exam":"C","topic":"DF","q":"Which keyboard shortcut opens the Force Quit Applications window on a Mac?","opts":["Command-Q","Option-Command-Esc","Control-Command-Q","Shift-Command-Esc"],"ans":1,"why":"Option-Command-Esc opens Force Quit; Control-Command-Q locks the screen.","hint":"This is the shortcut that opens the window for quitting a frozen app, not the one that quits the front app or locks the screen."},{"id":"C6","exam":"C","topic":"DF","q":"Which macOS utility is used to erase a disk or run First Aid on it?","opts":["Disk Utility","Boot Camp Assistant","System Information","Directory Utility"],"ans":0,"why":"Disk Utility erases, partitions and repairs disks.","hint":"The utility's name is about disks: erase, partition, and First Aid — not Boot Camp or System Information."},{"id":"C7","exam":"C","topic":"APL","q":"The contents of MDM commands, such as a configuration profile, are sent to the device through APNs.","opts":["True","False"],"ans":1,"why":"APNs carries only a wake-up notification; the device downloads commands directly from Jamf Pro.","hint":"Remember the 'tap on the shoulder' idea. Does Apple's push service carry the actual profile, or only a wake-up?"},{"id":"C8","exam":"C","topic":"APL","q":"What is a key benefit of managed distribution for apps bought through Apps and Books?","opts":["Licenses can be revoked from one device or user and reassigned to another","Apps never need updates","Apps install without any MDM","Licenses can be resold"],"ans":0,"why":"The organization keeps ownership of licenses and can reclaim and reuse them.","hint":"The organization keeps the licenses. The big benefit is taking a license back from one device or person and giving it to another."},{"id":"C9","exam":"C","topic":"APL","q":"Who owns and controls Managed Apple Accounts?","opts":["The individual user","Apple","The organization that creates them","The device's carrier"],"ans":2,"why":"Managed Apple Accounts are created and administered by the organization in Apple Business or Apple School Manager.","hint":"These accounts are created in Apple Business or Apple School Manager. Who creates them is also who administers them."},{"id":"C10","exam":"C","topic":"APL","q":"What can Jamf Pro add to inventory records by connecting to Apple's Global Service Exchange (GSX)?","opts":["Purchase and warranty information","User passwords","App usage time","Battery history"],"ans":0,"why":"A GSX connection looks up purchasing and warranty details for each device.","hint":"This Apple service connection fills in buying and warranty facts, not passwords or how long apps were used."},{"id":"C11","exam":"C","topic":"APL","q":"Which sequence describes MDM communication correctly?","opts":["Jamf Pro queues a command and notifies APNs; APNs wakes the device; the device checks in with Jamf Pro and gets the command","The device polls APNs every minute; APNs forwards commands to Jamf Pro","Jamf Pro emails the device; the user approves the command","APNs sends the command; Jamf Pro confirms later by email"],"ans":0,"why":"Commands are queued in Jamf Pro and fetched by the device after an APNs wake-up.","hint":"Walk through the order: Jamf Pro queues the work, something wakes the device, then the device comes back to Jamf Pro to pick the work up."},{"id":"C12","exam":"C","topic":"APL","q":"What is an advantage of assigning App Store apps to devices (device assignment) rather than users?","opts":["No Apple Account is needed on the device to install the app","Apps install faster over cellular","The app becomes free for everyone","One license covers unlimited devices"],"ans":0,"why":"Device-assigned licenses install silently without anyone signing in with an Apple Account.","hint":"The advantage is about sign-in: the app can install without anyone using a personal Apple Account on the device."},{"id":"C13","exam":"C","topic":"JPI","q":"Categories also control how items are grouped for users in Self Service.","opts":["True","False"],"ans":0,"why":"Self Service shows items under the categories you choose for them.","hint":"Think about what a user sees in Self Service and whether those groupings come from the categories you assign."},{"id":"C14","exam":"C","topic":"JPI","q":"In a computer or mobile device inventory record, where are building and department assigned?","opts":["General","User and Location","Hardware","Security"],"ans":1,"why":"Building and department are User and Location fields.","hint":"Building and department live with the person and place information on the record, not under Hardware or Security."},{"id":"C15","exam":"C","topic":"JPI","q":"What is the Jamf Cloud Distribution Service (JCDS)?","opts":["Jamf's cloud-hosted distribution point for packages","An Apple push service","A privilege set","A type of configuration profile"],"ans":0,"why":"JCDS hosts packages for Jamf Cloud customers, delivered through a content network.","hint":"This is Jamf's own cloud file server for installers, used by Jamf Cloud customers — not Apple's push service and not a permission set."},{"id":"C16","exam":"C","topic":"JPI","q":"A help desk technician should view inventory and send Lock commands but must not edit policies. Which privilege set fits best?","opts":["Administrator","Auditor","Enrollment Only","Custom"],"ans":3,"why":"Custom lets you grant exactly the privileges needed; Auditor can't send commands and Administrator is too broad.","hint":"The technician needs to view inventory and send a Lock command, but not edit policies. Built-in sets are either too weak or too strong, so you build one yourself."},{"id":"C17","exam":"C","topic":"JPI","q":"What is the usual URL format for a Jamf Cloud-hosted Jamf Pro instance?","opts":["`https://yourinstance.jamfcloud.com`","`https://jamf.apple.com/yourinstance`","`http://localhost:8443`","`https://yourinstance.icloud.com`"],"ans":0,"why":"Jamf Cloud instances live under the jamfcloud.com domain.","hint":"Jamf Cloud addresses use Jamf's cloud domain, not Apple's or iCloud, and they use https."},{"id":"C18","exam":"C","topic":"JPI","q":"Buildings and departments can be used as criteria in smart groups and advanced searches.","opts":["True","False"],"ans":0,"why":"Building and department are inventory fields, so they can be used as criteria.","hint":"Building and department are facts in inventory. Can inventory facts be used as rules in groups and searches?"},{"id":"C19","exam":"C","topic":"ENR","q":"How often must the Automated Device Enrollment server token be renewed?","opts":["Every 30 days","Every year","Every 5 years","Never"],"ans":1,"why":"ADE server tokens expire after one year.","hint":"The Automated Device Enrollment token expires on a yearly cycle, like several other Apple tokens and certificates in this course."},{"id":"C20","exam":"C","topic":"ENR","q":"Which enrollment method is for organization-owned devices and starts when a user signs in with a Managed Apple Account in Settings?","opts":["Account-driven Device Enrollment","Account-driven User Enrollment","Apple Configurator only","Enrollment invitation"],"ans":0,"why":"Account-driven Device Enrollment gives full device management for owned devices; User Enrollment is for personal devices.","hint":"This method is for organization-owned devices and starts when someone signs in with a Managed Apple Account in Settings. It is not the personal-device version."},{"id":"C21","exam":"C","topic":"ENR","q":"An iPad assigned to Jamf Pro in Apple Business is erased. What happens when it is set up again?","opts":["It automatically re-enrolls through Automated Device Enrollment during Setup Assistant","It is removed from Apple Business","It must be returned to Apple","It enrolls only after the push certificate is re-uploaded"],"ans":0,"why":"ADE assignment stays with the serial number, so the device re-enrolls after a wipe.","hint":"The assignment is tied to the serial number in Apple Business. After an erase, what happens when Setup Assistant runs again?"},{"id":"C22","exam":"C","topic":"ENR","q":"Which PreStage scope option adds newly assigned devices to the PreStage on its own?","opts":["Automatically assign new devices","Require Authentication","Prevent Activation Lock","Skip Setup Assistant panes"],"ans":0,"why":"With automatic assignment on, new devices synced from Apple Business join that PreStage.","hint":"The option's name is about new devices being added to the PreStage on their own when they sync from Apple Business."},{"id":"C23","exam":"C","topic":"ENR","q":"Which enrollment method best fits a personally owned iPhone whose personal data must stay separate and private?","opts":["Automated Device Enrollment","Account-driven User Enrollment","Apple Configurator supervision","PreStage enrollment"],"ans":1,"why":"User Enrollment keeps work data in a separate volume and limits what IT can see.","hint":"For a personally owned phone, you want the enrollment that keeps personal data separate and limits what IT can see."},{"id":"C24","exam":"C","topic":"ENR","q":"What must be in place in Jamf Pro before any device can enroll and be managed?","opts":["A valid push certificate","Self Service branding","At least one policy","A smart group"],"ans":0,"why":"Without an APNs push certificate, MDM communication and enrollment can't work.","hint":"Nothing else in Jamf Pro works for management until devices can be woken and told to check in. That depends on a valid Apple push certificate."},{"id":"C25","exam":"C","topic":"INV","q":"What can an advanced search do that a simple search cannot?","opts":["Combine several criteria and choose which fields to display","Search by name","Find computers","Use the search bar"],"ans":0,"why":"Advanced searches use criteria and display options and can be saved.","hint":"A simple search is a single box. The advanced version lets you stack rules and choose which columns you see — and you can save it."},{"id":"C26","exam":"C","topic":"INV","q":"Which character works as a wildcard in a Jamf Pro simple search?","opts":["`*`","`#`","`!`","`%`"],"ans":0,"why":"An asterisk matches any characters, for example `MacBook*`.","hint":"The wildcard is the same 'match anything' character many people use in file searches."},{"id":"C27","exam":"C","topic":"INV","q":"From advanced search results, what can you do with the Action button?","opts":["Run mass actions such as editing buildings or sending a mass MDM command","Delete Jamf Pro","Renew the push certificate","Create Managed Apple Accounts"],"ans":0,"why":"Mass actions apply one change to every device in the results.","hint":"From the results, this button lets you make one change to every device in the list, such as a building or a remote command."},{"id":"C28","exam":"C","topic":"INV","q":"Where in Jamf Pro Settings do you choose extra computer inventory to collect, such as home directory sizes?","opts":["Computer management > Inventory collection","Global > Event logs","System > Change management","Network > Network segments"],"ans":0,"why":"Inventory collection settings control what computers report during recon.","hint":"Look under computer management, in the settings that control what a Mac reports when it sends inventory."},{"id":"C29","exam":"C","topic":"INV","q":"In which formats can advanced search results be exported?","opts":["CSV, tab-delimited text and XML","PDF only","DOCX only","They cannot be exported"],"ans":0,"why":"Search results can be exported to CSV, tab-delimited or XML.","hint":"You can take the results out as a spreadsheet-style file, a tab-separated file, or XML — not only as a PDF."},{"id":"C30","exam":"C","topic":"GRP","q":"A smart group can use membership in another group as one of its criteria.","opts":["True","False"],"ans":0,"why":"The group membership criterion lets you nest groups.","hint":"Think about whether one group's membership can be a rule inside another group's criteria — nesting groups."},{"id":"C31","exam":"C","topic":"GRP","q":"When does a computer smart group usually recalculate a computer's membership?","opts":["When the computer submits inventory or the group's criteria change","Once a year","Only when an admin clicks Refresh","Only after a restart"],"ans":0,"why":"Membership is reevaluated as new inventory arrives or criteria are saved.","hint":"Membership is not a once-a-year thing. It is rechecked when new inventory arrives or when someone changes the rules."},{"id":"C32","exam":"C","topic":"GRP","q":"Static groups can be used to scope policies and configuration profiles.","opts":["True","False"],"ans":0,"why":"Both static and smart groups can be targets, limitations or exclusions.","hint":"Scope can use groups as targets, limitations, or exclusions. Does that include hand-picked lists as well as rule-based ones?"},{"id":"C33","exam":"C","topic":"GRP","q":"Computer smart groups and mobile device smart groups are separate; one group cannot contain both.","opts":["True","False"],"ans":0,"why":"Groups are created per device type: computers, mobile devices or users.","hint":"Groups are built for one kind of thing at a time: computers, mobile devices, or users. Can a single group mix Macs and iPhones?"},{"id":"C34","exam":"C","topic":"CFG","q":"On macOS, what is the difference between Computer Level and User Level configuration profiles?","opts":["Computer Level applies to the whole Mac; User Level applies only to the logged-in user","They are the same","User Level applies to iPhones","Computer Level only works in Self Service"],"ans":0,"why":"Level sets whether the profile is installed for the device or for one user.","hint":"One level is for the whole Mac. The other is only for the person who is logged in. They are not the same thing."},{"id":"C35","exam":"C","topic":"CFG","q":"What does a Privacy Preferences Policy Control (PPPC) payload do?","opts":["Pre-approves apps for privacy permissions such as Full Disk Access","Hides the Privacy & Security pane","Encrypts the disk","Enforces a passcode"],"ans":0,"why":"PPPC grants permissions like Full Disk Access so users aren't prompted; it requires User Approved MDM.","hint":"This payload pre-approves privacy permissions such as Full Disk Access so the user isn't prompted. It needs User Approved MDM."},{"id":"C36","exam":"C","topic":"CFG","q":"Which Jamf Pro feature uses Declarative Device Management to enforce an OS update to a specific version by a deadline?","opts":["Managed software updates","Patch Management reports","Inventory Preload","Restricted Software"],"ans":0,"why":"Managed software updates send DDM update declarations with a target version and deadline.","hint":"This feature sends a modern update declaration with a target version and a deadline — not a patch report or Inventory Preload."},{"id":"C37","exam":"C","topic":"CFG","q":"Where can you see which devices failed or are still pending for a configuration profile?","opts":["The profile's Logs","Self Service","Settings > Global","Apple Business"],"ans":0,"why":"Profile logs list completed, pending and failed devices.","hint":"Every profile has a log that lists devices that finished, are still waiting, or failed."},{"id":"C38","exam":"C","topic":"CFG","q":"Which payload arranges the Home Screen app layout on supervised iPhones and iPads?","opts":["Home Screen Layout","Dock","Notifications","Single App Mode"],"ans":0,"why":"Home Screen Layout sets the dock and pages on supervised devices.","hint":"The payload's name is about the Home Screen itself — the dock and the pages of apps — and it is for supervised iPhones and iPads."},{"id":"C39","exam":"C","topic":"DDM","q":"Which two ways can you start a blueprint?","opts":["From a Quick Start template or in the Blueprint Builder","Only by uploading a .pkg","Only from Apple Business","Only with a script"],"ans":0,"why":"Blueprints start from a Quick Start template or a custom build.","hint":"You can start from a ready-made template or build one yourself in the editor. You do not start by uploading a package."},{"id":"C40","exam":"C","topic":"DDM","q":"Which Compliance Benchmarks mode makes Jamf Pro actively apply and maintain security settings?","opts":["Monitor and enforce","Monitor only","Audit only","Preview"],"ans":0,"why":"Monitor and enforce applies the settings; Monitor only just reports.","hint":"One mode only reports. The mode that also applies and keeps the settings has both words in its name: watch and apply."},{"id":"C41","exam":"C","topic":"POL","q":"Why is Ongoing frequency with the Recurring Check-in trigger risky?","opts":["The policy runs at every check-in, which can repeat installs over and over","It never runs","It only runs once","It requires Self Service"],"ans":0,"why":"Ongoing on check-in can run every 15 minutes; use it only when that is intended.","hint":"If it runs on every regular check-in with no cap, it could repeat every 15 minutes. That is only a good idea when you really mean it."},{"id":"C42","exam":"C","topic":"POL","q":"What are the three parts of a policy's scope?","opts":["Targets, Limitations and Exclusions","Packages, Scripts and Printers","General, Hardware and Software","Install, Cache and Uninstall"],"ans":0,"why":"Targets choose who gets it, limitations narrow it, and exclusions remove devices.","hint":"Remember the three pieces: who is included, what narrows that list, and who is left out no matter what."},{"id":"C43","exam":"C","topic":"POL","q":"Policies are used to manage Macs, not iPhones or iPads.","opts":["True","False"],"ans":0,"why":"Policies run through the jamf binary on macOS; mobile devices use MDM commands, profiles and apps.","hint":"Policies need the Jamf tool that runs on a Mac. iPhones and iPads are managed a different way: commands, profiles, and apps."},{"id":"C44","exam":"C","topic":"POL","q":"Where do you see whether a policy completed or failed on each computer?","opts":["The policy's Logs","The Dashboard only","Apple Business","Settings > Packages"],"ans":0,"why":"Policy logs show status per computer, with details for failures.","hint":"Open the policy itself and look at its logs. You'll see each computer's result, including failure details."},{"id":"C45","exam":"C","topic":"POL","q":"Which trigger runs a policy right after a computer finishes enrolling?","opts":["Enrollment Complete","Logout","Network State Change","Startup"],"ans":0,"why":"Enrollment Complete is used for first-run setup.","hint":"The trigger's name is about enrollment just finishing — useful for first-run setup."},{"id":"C46","exam":"C","topic":"POL","q":"Which Self Service option highlights an item on the Self Service home page?","opts":["Feature on main page","Make available offline","Ongoing","Flush logs"],"ans":0,"why":"Featured items are shown prominently on the home page.","hint":"This Self Service option puts the item in a prominent spot on the home page."},{"id":"C47","exam":"C","topic":"SCR","q":"When a policy has both a package and a script, what does the script's Priority setting control?","opts":["Whether the script runs Before or After other actions such as package installs","How many times it retries","Its category","Which users see it"],"ans":0,"why":"Before runs the script first; After runs it once the other payloads finish.","hint":"Priority here means timing: the script can run before the other policy actions, or after they finish."},{"id":"C48","exam":"C","topic":"SCR","q":"Which command makes a Mac check for policies it should run right now?","opts":["`sudo jamf policy`","`sudo jamf recon`","`jamf help`","`sudo shutdown -r now`"],"ans":0,"why":"`jamf policy` checks in and runs any eligible check-in policies.","hint":"One jamf command asks 'are there policies I should run?' The inventory command is a different one."},{"id":"C49","exam":"C","topic":"SCR","q":"What does Jamf Pro pass to a script as parameter $3?","opts":["The username of the logged-in user","The serial number","The Jamf Pro URL","The policy name"],"ans":0,"why":"Parameter 1 is the mount point, 2 the computer name, and 3 the username.","hint":"Jamf Pro fills the first three slots for you. The third one is the person currently logged in to the Mac."}],"D":[{"id":"D0","exam":"D","topic":"DF","q":"A standard (non-admin) macOS user can install software that needs administrator approval without entering admin credentials.","opts":["True","False"],"ans":1,"why":"Standard users must supply an administrator's name and password for changes that need admin rights.","hint":"Think about whether a standard account can approve a system-wide install on its own, or whether an administrator's name and password are still required."},{"id":"D1","exam":"D","topic":"DF","q":"Which file extension is used for a macOS disk image, a common way to distribute downloaded apps?","opts":[".dmg",".ipa",".mobileconfig",".sh"],"ans":0,"why":".dmg is a disk image; .ipa is an iOS app archive.","hint":"Downloaded Mac apps often arrive as a disk image. That extension is not the one used for iPhone app archives or for profiles."},{"id":"D2","exam":"D","topic":"DF","q":"Where are apps usually installed on a Mac so every user can use them?","opts":["~/Downloads","/Applications","/System/Library","~/Documents"],"ans":1,"why":"/Applications is shared by all users of the Mac.","hint":"The folder that every user of the Mac shares for apps sits at the top of the disk, not inside one person's home folder."},{"id":"D3","exam":"D","topic":"DF","q":"Which built-in macOS app gives you a command-line interface?","opts":["Console","Terminal","Script Editor","Automator"],"ans":1,"why":"Terminal opens a shell such as zsh.","hint":"It's the app whose window is a command-line shell, often zsh — not Console or Script Editor."},{"id":"D4","exam":"D","topic":"DF","q":"Apps installed from the Mac App Store are placed in the /Applications folder.","opts":["True","False"],"ans":0,"why":"App Store apps install to /Applications.","hint":"Think about where Mac App Store software lands on the disk — the same shared apps folder everyone uses."},{"id":"D5","exam":"D","topic":"DF","q":"Which Terminal command prints the short name of the user running the shell?","opts":["`pwd`","`whoami`","`ls`","`cd`"],"ans":1,"why":"`whoami` prints the username; `pwd` prints the current folder.","hint":"The command's name is a short question: who am I? A different command prints the current folder."},{"id":"D6","exam":"D","topic":"DF","q":"Which built-in macOS app moves accounts, apps and files from an old Mac or Time Machine backup to a new Mac?","opts":["Migration Assistant","Boot Camp Assistant","Disk Utility","Finder"],"ans":0,"why":"Migration Assistant transfers data during or after setup.","hint":"The app's name is about moving to a new Mac — accounts, apps, and files from an old Mac or a Time Machine backup."},{"id":"D7","exam":"D","topic":"APL","q":"Where are MDM push certificates created and renewed?","opts":["Apple Push Certificates Portal","App Store Connect","Jamf Nation","Apple Configurator"],"ans":0,"why":"Push certificates are issued at the Apple Push Certificates Portal (identity.apple.com) using a CSR from Jamf Pro.","hint":"These certificates are issued on Apple's own push-certificate website, using a request file that Jamf Pro creates — not in App Store Connect or Jamf Nation."},{"id":"D8","exam":"D","topic":"APL","q":"Which file do you download from Apple Business or Apple School Manager to connect an Apps and Books location to Jamf Pro?","opts":["A content token (.vpptoken)","A server token (.p7m)","A push certificate (.pem)","A configuration profile (.mobileconfig)"],"ans":0,"why":"The content token links a purchasing location; the .p7m server token is for ADE.","hint":"There are two different tokens. The one for Apps and Books is the content token. The other (.p7m) is for Automated Device Enrollment."},{"id":"D9","exam":"D","topic":"APL","q":"Which description best fits Declarative Device Management (DDM)?","opts":["Devices apply configurations on their own and proactively report status changes to the server","The server polls each device for every setting","Managing devices without enrolling them","A tool for imaging Macs"],"ans":0,"why":"With DDM the device keeps its own state and reports changes, instead of waiting for commands.","hint":"In this model the device keeps its own state and reports changes, instead of the server having to ask about every setting."},{"id":"D10","exam":"D","topic":"APL","q":"In Apple Business or Apple School Manager, what does federated authentication allow?","opts":["Users sign in to Managed Apple Accounts with credentials from an identity provider such as Microsoft Entra ID or Google Workspace","Devices skip Setup Assistant","Apps install without licenses","Push certificates renew automatically"],"ans":0,"why":"Federation links Managed Apple Accounts to the organization's identity provider.","hint":"This lets people sign in to their Managed Apple Account with the same work or school login they already use, such as Microsoft Entra ID or Google."},{"id":"D11","exam":"D","topic":"APL","q":"Devices enrolled through Automated Device Enrollment can be set so users cannot remove the MDM profile.","opts":["True","False"],"ans":0,"why":"A PreStage can prevent removal of the MDM profile for ADE devices.","hint":"Think about a PreStage setting for Automated Device Enrollment devices: can IT stop the user from removing the management profile?"},{"id":"D12","exam":"D","topic":"APL","q":"In Apple Business, how is a device linked to Jamf Pro for Automated Device Enrollment?","opts":["Its serial number is assigned to the MDM server that represents Jamf Pro","The user installs Jamf Pro from the App Store","IT emails the serial number to Apple","The device is cabled to the Jamf Pro server"],"ans":0,"why":"Device assignment in Apple Business tells the device which MDM server to enroll with.","hint":"In Apple Business, the link is the device's serial number assigned to the MDM server that stands for your Jamf Pro — not an App Store install."},{"id":"D13","exam":"D","topic":"JPI","q":"In Jamf Pro Settings, where do you add Jamf Pro user accounts and groups?","opts":["System > User accounts and groups","Computer management > Policies","Global > Re-enrollment","Self Service > Branding"],"ans":0,"why":"Jamf Pro accounts, groups and their privileges are managed under System settings.","hint":"Look under System settings, where Jamf Pro accounts, groups, and their privileges are managed — not under policies or Self Service."},{"id":"D14","exam":"D","topic":"JPI","q":"What is a Jamf Account used for?","opts":["Signing in to Jamf products and resources such as Jamf training and Jamf Nation","Enrolling iPhones","Creating Managed Apple Accounts","Purchasing apps for devices"],"ans":0,"why":"A Jamf Account is your identity for Jamf services, training and community.","hint":"This is your login for Jamf's own websites and training, not a way to enroll devices or create Apple Accounts."},{"id":"D15","exam":"D","topic":"JPI","q":"A Jamf Pro policy can be assigned to only one category.","opts":["True","False"],"ans":0,"why":"Each object takes a single category used for organizing it.","hint":"Think about how objects are organized in lists and in Self Service: how many of those labels can one policy have?"},{"id":"D16","exam":"D","topic":"JPI","q":"Where do you add installer packages in Jamf Pro so policies can deploy them?","opts":["Settings > Computer management > Packages","Computers > Inventory","Devices > Configuration profiles","Users > Static user groups"],"ans":0,"why":"Packages are uploaded under Computer management and stored on the distribution point.","hint":"Packages are added in Settings, under computer management — then they live on the distribution point so policies can use them."},{"id":"D17","exam":"D","topic":"JPI","q":"Where in Jamf Pro Settings are network segments configured?","opts":["Network > Network segments","Global > Event logs","Self Service > macOS","System > SMTP server"],"ans":0,"why":"Network segments are part of the Network settings.","hint":"The name is a clue: these IP ranges live under the Network settings, not under Self Service or email."},{"id":"D18","exam":"D","topic":"JPI","q":"What does a distribution point hold in Jamf Pro?","opts":["Packages that policies install","Push certificates","Smart group criteria","Device inventory"],"ans":0,"why":"Distribution points such as JCDS host packages; inventory and settings live in the Jamf Pro database.","hint":"This is a file-hosting location for installers that policies can put on Macs. Inventory and settings stay in the Jamf Pro database."},{"id":"D19","exam":"D","topic":"ENR","q":"Which devices can use Automated Device Enrollment?","opts":["Devices in Apple Business or Apple School Manager, bought from Apple or a participating reseller or added with Apple Configurator","Any device with an Apple Account","Only devices bought from a carrier","Any device on company Wi-Fi"],"ans":0,"why":"ADE needs the device's serial number in the organization's Apple Business or Apple School Manager.","hint":"The device's serial number has to be in the organization's Apple Business or Apple School Manager — from Apple, a participating reseller, or added with Apple Configurator."},{"id":"D20","exam":"D","topic":"ENR","q":"Which enrollment method gives a zero-touch experience, enrolling a new device during setup straight out of the box?","opts":["Automated Device Enrollment","User-initiated enrollment","Enrollment invitations","Account-driven User Enrollment"],"ans":0,"why":"ADE enrolls during Setup Assistant with no IT touch.","hint":"The zero-touch method enrolls during the first-run Setup Assistant, out of the box, with no IT visit needed."},{"id":"D21","exam":"D","topic":"ENR","q":"When a device is added to Apple Business with Apple Configurator, how long is the provisional period in which the user can release it?","opts":["24 hours","30 days","90 days","1 year"],"ans":1,"why":"Devices added with Apple Configurator have a 30-day provisional period.","hint":"When a device is added with Apple Configurator, the user has a short window — measured in days, not a year — to release it."},{"id":"D22","exam":"D","topic":"ENR","q":"Why does User Approved MDM matter on macOS?","opts":["Some features, such as PPPC and kernel extension approval, need enrollment approved by a user or done through ADE","It lets users remove the MDM profile","It is required for Spotlight","It speeds up Wi-Fi"],"ans":0,"why":"ADE enrollment, or a user approving the MDM profile, unlocks security-sensitive payloads.","hint":"Some sensitive Mac settings, such as Full Disk Access approvals, only work if enrollment was approved by a user or done through Automated Device Enrollment."},{"id":"D23","exam":"D","topic":"ENR","q":"In a PreStage enrollment, what are the Setup Assistant options for?","opts":["Choosing which setup panes users see or skip","Choosing Dock apps","Setting the push certificate","Setting the inventory schedule"],"ans":0,"why":"PreStages let you skip panes such as Siri or Screen Time to speed up setup.","hint":"These options choose which first-run screens the person sees or skips, such as Siri or Screen Time."},{"id":"D24","exam":"D","topic":"ENR","q":"Which enrollment method requires the user to visit an enrollment URL or follow an invitation, rather than enrolling during Setup Assistant?","opts":["User-initiated enrollment","Automated Device Enrollment","PreStage enrollment","Zero-touch deployment"],"ans":0,"why":"User-initiated enrollment is started by the user after setup.","hint":"This method starts after the device is already set up: the person opens a link or an invitation, rather than enrolling during Setup Assistant."},{"id":"D25","exam":"D","topic":"INV","q":"Advanced searches can be saved so you can run them again later.","opts":["True","False"],"ans":0,"why":"Saved advanced searches can be rerun and shared with other admins.","hint":"Think about whether you can keep an advanced search and run it again later, and whether other admins can use it too."},{"id":"D26","exam":"D","topic":"INV","q":"Where in a mobile device's inventory record do you send a remote command such as Lock Device?","opts":["The Management tab","The Purchasing section","The History tab","Settings > Global"],"ans":0,"why":"Management lists available MDM commands for that device.","hint":"On that device's record, look for the tab about managing it — that is where remote commands such as Lock live, not History or Purchasing."},{"id":"D27","exam":"D","topic":"INV","q":"What is the difference between a computer's Last Check-in and Last Inventory Update?","opts":["Last Check-in is the last contact to check for policies; Last Inventory Update is the last full inventory submission","They always match","Last Check-in is only for iPhones","Last Inventory Update is the enrollment date"],"ans":0,"why":"Computers check in often but submit full inventory less frequently.","hint":"One timestamp is a quick 'anything for me to do?' visit. The other is the last time the Mac sent a full set of facts about itself. They are not always the same."},{"id":"D28","exam":"D","topic":"INV","q":"Which inventory section tracks details such as PO number, vendor and warranty expiration?","opts":["Purchasing","Hardware","Operating System","Disk Encryption"],"ans":0,"why":"Purchasing holds procurement and warranty data.","hint":"This section is about buying the device: purchase order, vendor, and warranty dates — not hardware specs."},{"id":"D29","exam":"D","topic":"INV","q":"What are extension attributes used for?","opts":["Collecting custom inventory data Jamf Pro does not collect by default","Extending the push certificate","Extending policy deadlines","Adding disk space"],"ans":0,"why":"EAs add custom fields to inventory, filled by a script, text, a pop-up menu or the directory.","hint":"These are extra inventory fields you add for facts Jamf Pro does not already collect, filled by a script, text, a menu, or the directory."},{"id":"D30","exam":"D","topic":"GRP","q":"IT wants to find Macs with less than 20 GB free space and fix them automatically. What is the best tool?","opts":["A smart group with a disk space criterion, used to scope a policy","A static group updated weekly","A category","A network segment"],"ans":0,"why":"Smart groups update as inventory changes, so the policy reaches each Mac that qualifies.","hint":"You want a list that updates itself as free space changes, then a policy aimed at that list — not a hand-updated list or a category."},{"id":"D31","exam":"D","topic":"GRP","q":"Jamf Pro supports smart and static user groups as well as device groups.","opts":["True","False"],"ans":0,"why":"There are computer, mobile device and user groups, each smart or static.","hint":"Besides computer and mobile device groups, think about whether you can also group people, and whether those groups can be rule-based or hand-picked."},{"id":"D32","exam":"D","topic":"GRP","q":"A smart group has 'Operating System Version less than 15.0' AND 'Building is HQ'. Which computer is a member?","opts":["A Mac on macOS 14.6 at HQ","A Mac on macOS 15.1 at HQ","A Mac on macOS 14.6 in Austin","A Mac on macOS 15.1 in Austin"],"ans":0,"why":"With AND, both conditions must be true.","hint":"When two rules are joined with AND, both have to be true. Check the macOS version and the building together."},{"id":"D33","exam":"D","topic":"GRP","q":"What happens if a computer smart group has no criteria?","opts":["It includes all computers","It includes no computers","It cannot be saved","It includes only new computers"],"ans":0,"why":"With nothing to filter on, every computer matches.","hint":"If you set no rules at all, there is nothing to filter on. Who is left in the list?"},{"id":"D34","exam":"D","topic":"CFG","q":"Which payload can disable features such as the camera or AirDrop?","opts":["Restrictions","Wi-Fi","Certificate","Login Window"],"ans":0,"why":"Restrictions turns features off or on.","hint":"The payload that turns features off — such as the camera or AirDrop — is named after those limits."},{"id":"D35","exam":"D","topic":"CFG","q":"Which payload preconfigures a wireless network so devices join it automatically?","opts":["Wi-Fi","VPN","Proxy","Mail"],"ans":0,"why":"The Wi-Fi payload holds the SSID, security type and credentials.","hint":"The payload is named after the wireless network itself: network name, security type, and the password or certificate."},{"id":"D36","exam":"D","topic":"CFG","q":"You can upload an existing .mobileconfig file to Jamf Pro instead of building the profile from scratch.","opts":["True","False"],"ans":0,"why":"Profiles can be uploaded and then scoped like any other.","hint":"Think about whether Jamf Pro will accept a profile file you already have, then let you aim it at devices like any other profile."},{"id":"D37","exam":"D","topic":"CFG","q":"How can a configuration profile scoped to a computer group be limited to certain directory users?","opts":["Add the users as Limitations in scope","Put the users in a category","Add them to a network segment","It cannot be done"],"ans":0,"why":"Limitations narrow a scope by directory users, groups or network segments.","hint":"Scope has a way to narrow who gets something, using directory users or groups, without taking them out as exclusions."},{"id":"D38","exam":"D","topic":"CFG","q":"Which payload configures items in the macOS Dock?","opts":["Dock","Login Window","Restrictions","Energy Saver"],"ans":0,"why":"The Dock payload sets Dock items and behavior.","hint":"The payload is named after the row of apps and folders at the edge of the Mac screen."},{"id":"D39","exam":"D","topic":"DDM","q":"Because of Declarative Device Management, devices can apply some settings based on criteria even when offline.","opts":["True","False"],"ans":0,"why":"Declarations can activate on device conditions without waiting for the server.","hint":"In this newer model, some rules can turn on from conditions on the device itself, without waiting to hear from the server. What does that mean if the device is offline?"},{"id":"D40","exam":"D","topic":"DDM","q":"What can you do with Compliance Benchmarks results?","opts":["View compliance scores in the rule report and export them as CSV","Only view them on the device","Send them to Apple","Nothing; results are hidden"],"ans":0,"why":"Rule reports show scores and can be exported, with audit documents available to download.","hint":"You can read scores in a rule report and export them as a spreadsheet file. The results are not stuck only on the device."},{"id":"D41","exam":"D","topic":"POL","q":"What can users do with Self Service on a Mac?","opts":["Install approved apps and run IT-provided items on demand, without admin rights","Change Jamf Pro settings","Create smart groups","Renew the push certificate"],"ans":0,"why":"Self Service is an IT-curated catalog that runs with management privileges.","hint":"On a Mac, this app is a catalog IT sets up so people can install approved items themselves, without needing admin rights."},{"id":"D42","exam":"D","topic":"POL","q":"Jamf Self Service is also available for iPhone and iPad.","opts":["True","False"],"ans":0,"why":"Self Service for iOS and iPadOS offers apps, profiles and books.","hint":"Think about whether that same catalog exists for iPhone and iPad, for apps, profiles, and books."},{"id":"D43","exam":"D","topic":"POL","q":"Before a policy can install a package, where must the package be?","opts":["Uploaded to a distribution point such as JCDS","On the user's desktop","In Apple Business","In the push certificate"],"ans":0,"why":"Policies download packages from a distribution point.","hint":"The installer has to be on a distribution point — for example Jamf's cloud one — before a policy can download it. The desktop or Apple Business is not that place."},{"id":"D44","exam":"D","topic":"POL","q":"Which frequency runs a policy once for each user who logs in to a given computer?","opts":["Once per user per computer","Once per computer","Once per user","Ongoing"],"ans":0,"why":"Once per user per computer repeats for each new user on that Mac.","hint":"Read the frequency name carefully: once for each person who logs in, and it is tied to that particular computer."},{"id":"D45","exam":"D","topic":"POL","q":"What does the Restart Options payload control?","opts":["Whether and when the computer restarts after the policy","Self Service branding","Wi-Fi settings","Inventory timing"],"ans":0,"why":"Restart Options sets restart behavior for logged-in and logged-out states.","hint":"This payload is about what the Mac does after the policy: whether it restarts, and how that differs if someone is logged in."},{"id":"D46","exam":"D","topic":"POL","q":"Which trigger runs a policy as soon as a user logs in?","opts":["Login","Logout","Recurring Check-in","Custom"],"ans":0,"why":"The Login trigger fires when a user logs in.","hint":"The trigger is named after the moment a user signs in to the Mac."},{"id":"D47","exam":"D","topic":"SCR","q":"Scripts run by Jamf Pro policies run as root.","opts":["True","False"],"ans":0,"why":"The jamf binary runs scripts as root, so use $3 or another method to act as the logged-in user.","hint":"Policies run scripts with the highest system permission. If you need to act as the person at the keyboard, that takes an extra step, such as a special parameter."},{"id":"D48","exam":"D","topic":"SCR","q":"Which Terminal command lists all files in the current folder, including hidden ones, with details?","opts":["`ls -la`","`pwd`","`cd ~`","`mkdir -p`"],"ans":0,"why":"`-l` gives a long listing and `-a` includes hidden dot files.","hint":"You want a listing of the current folder that includes hidden files and shows details. Two short flags on the list command do that."},{"id":"D49","exam":"D","topic":"SCR","q":"Where can you give friendly labels to script parameters 4 to 11 so they show in a policy?","opts":["The script's Options tab in Jamf Pro","The policy's Restart Options","The package's info","Settings > SMTP"],"ans":0,"why":"Parameter labels set in the script record appear as field names in the policy.","hint":"Those friendly names are set on the script itself, on the tab for options, so they show up as field labels inside the policy."}]}};
+(function () {
+  "use strict";
+
+  const STORE = "jamf100-study-v1";
+  const LIMIT = 3600;
+  const PASS = 40;
+  const LETTERS = ["A", "B", "C", "D"];
+  const EXAM_IDS = ["A", "B", "C", "D"];
+  const TOPICS = BANK.topics;
+  const TOPIC_KEYS = Object.keys(TOPICS);
+
+  function hash(s) {
+    let h = 0;
+    for (let i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) >>> 0;
+    return h;
+  }
+
+  function prep(row) {
+    const opts = row.opts.slice();
+    let ans = row.ans;
+    if (opts.length !== 2) {
+      const correct = opts[ans];
+      const rest = opts.filter(function (_, i) { return i !== ans; });
+      const pos = hash(row.q) % opts.length;
+      opts.splice(0, opts.length, ...rest.slice(0, pos), correct, ...rest.slice(pos));
+      ans = pos;
+    }
+    return {
+      id: row.id,
+      exam: row.exam,
+      topic: row.topic,
+      q: row.q,
+      opts: opts,
+      ans: ans,
+      why: row.why,
+      hint: row.hint || ""
+    };
+  }
+
+  const CARDS = [];
+  EXAM_IDS.forEach(function (ex) {
+    (BANK.exams[ex] || []).forEach(function (row) {
+      CARDS.push(prep(row));
+    });
+  });
+  const BY_ID = {};
+  CARDS.forEach(function (c) { BY_ID[c.id] = c; });
+
+  function toPlain(why) {
+    const reps = [
+      [/\bmSCP\b/g, "mSCP (the macOS Security Compliance Project)"],
+      [/\bAPNs\b/g, "APNs (Apple's push service)"],
+      [/\bMDM\b/g, "MDM (device management)"],
+      [/\bADE\b/g, "ADE (Automated Device Enrollment)"],
+      [/\bSMTP\b/g, "SMTP (the email-sending setting)"],
+      [/\bJCDS\b/g, "JCDS (Jamf's cloud file server for packages)"],
+      [/\bPPPC\b/g, "PPPC (privacy permission approvals)"],
+      [/\bDDM\b/g, "DDM (Declarative Device Management)"],
+      [/\bLDAP\b/g, "LDAP (a company directory)"],
+      [/\bUDID\b/g, "UDID (a unique device identifier)"],
+      [/\bSIP\b/g, "SIP (System Integrity Protection)"],
+      [/\bSSO\b/g, "SSO (single sign-on)"],
+      [/\bCSR\b/g, "CSR (a certificate request file)"],
+      [/\bGSX\b/g, "GSX (Apple's service and warranty system)"],
+      [/\bEAs\b/g, "extension attributes"]
+    ];
+    let s = why;
+    for (let i = 0; i < reps.length; i++) s = s.replace(reps[i][0], reps[i][1]);
+    return s;
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function rich(s) {
+    return escapeHtml(s).split("`").map(function (part, i) {
+      return i % 2 === 1 ? "<code>" + part + "</code>" : part;
+    }).join("");
+  }
+
+  function shuffle(list) {
+    const a = list.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function mmss(s) {
+    return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+  }
+
+  function emptyPractice() {
+    const o = {};
+    EXAM_IDS.forEach(function (ex) {
+      o[ex] = { answers: {}, submitted: false, startedAt: 0 };
+    });
+    return o;
+  }
+
+  function loadSaved() {
+    const base = { missed: [], close: [], bestStreak: 0, practice: emptyPractice() };
+    try {
+      const raw = localStorage.getItem(STORE);
+      if (!raw) return base;
+      const p = JSON.parse(raw);
+      const missed = Array.isArray(p.missed) ? p.missed.filter(function (x) { return typeof x === "string"; }) : [];
+      const close = Array.isArray(p.close) ? p.close.filter(function (x) { return typeof x === "string"; }) : [];
+      const bestStreak = typeof p.bestStreak === "number" && p.bestStreak > 0 ? p.bestStreak : 0;
+      const practice = emptyPractice();
+      if (p.practice && typeof p.practice === "object") {
+        EXAM_IDS.forEach(function (ex) {
+          const src = p.practice[ex] || {};
+          const answers = {};
+          if (src.answers && typeof src.answers === "object") {
+            Object.keys(src.answers).forEach(function (k) {
+              const n = Number(src.answers[k]);
+              if (Number.isInteger(n)) answers[k] = n;
+            });
+          }
+          practice[ex] = {
+            answers: answers,
+            submitted: !!src.submitted,
+            startedAt: typeof src.startedAt === "number" ? src.startedAt : 0
+          };
+        });
+      }
+      return { missed: missed, close: close, bestStreak: bestStreak, practice: practice };
+    } catch (e) {
+      return base;
+    }
+  }
+
+  function persist() {
+    try {
+      localStorage.setItem(STORE, JSON.stringify(saved));
+    } catch (e) { /* ignore quota or private mode */ }
+  }
+
+  let saved = loadSaved();
+  let tab = "quiz";
+  let screen = "home";
+  let kind = "exam";
+  let exam = "A";
+  let section = "DF";
+  let randomSize = 10;
+  let shuffleOn = true;
+  let timerOn = false;
+  let deck = [];
+  let index = 0;
+  let hinted = false;
+  let revealed = false;
+  let marks = {};
+  let streak = 0;
+  let bestInSession = 0;
+  let startedAt = 0;
+  let timedRound = false;
+  let practiceExam = "A";
+  let practiceTimerOn = false;
+  let practiceIndex = 0;
+  let practiceFilter = "missed";
+  let now = Date.now();
+  let ticker = null;
+
+  function pileCount() {
+    return saved.missed.length + saved.close.length;
+  }
+
+  function examCount(ex) {
+    return CARDS.filter(function (c) { return c.exam === ex; }).length;
+  }
+
+  function topicCount(t) {
+    return CARDS.filter(function (c) { return c.topic === t; }).length;
+  }
+
+  function previewCount() {
+    if (kind === "exam") return examCount(exam);
+    if (kind === "section") return topicCount(section);
+    if (kind === "random") return Math.min(randomSize, CARDS.length);
+    return pileCount();
+  }
+
+  function remainingFor(start) {
+    if (!start) return LIMIT;
+    return Math.max(0, LIMIT - Math.floor((now - start) / 1000));
+  }
+
+  function ensureTicker() {
+    const quizTicking = tab === "quiz" && screen === "quiz" && timedRound && startedAt;
+    const prac = saved.practice[practiceExam];
+    const pracTicking = tab === "practice" && practiceTimerOn && prac && prac.startedAt && !prac.submitted;
+    if (quizTicking || pracTicking) {
+      if (!ticker) ticker = setInterval(onTick, 1000);
+    } else if (ticker) {
+      clearInterval(ticker);
+      ticker = null;
+    }
+  }
+
+  function onTick() {
+    now = Date.now();
+    const el = document.getElementById("timer-display");
+    if (tab === "quiz" && timedRound && startedAt) {
+      const left = remainingFor(startedAt);
+      if (el) el.textContent = mmss(left) + " left";
+      if (left === 0) {
+        if (Object.keys(marks).length === 0) goQuizHome();
+        else finishQuiz();
+        return;
+      }
+    }
+    if (tab === "practice") {
+      const prac = saved.practice[practiceExam];
+      if (practiceTimerOn && prac.startedAt && !prac.submitted) {
+        const left = remainingFor(prac.startedAt);
+        if (el) el.textContent = mmss(left) + " left";
+        if (left === 0) {
+          prac.submitted = true;
+          persist();
+          render();
+          return;
+        }
+      }
+    }
+  }
+
+  function startQuiz() {
+    let list = [];
+    if (kind === "exam") list = CARDS.filter(function (c) { return c.exam === exam; });
+    else if (kind === "section") list = CARDS.filter(function (c) { return c.topic === section; });
+    else if (kind === "random") list = shuffle(CARDS).slice(0, randomSize);
+    else {
+      const want = {};
+      saved.missed.forEach(function (id) { want[id] = true; });
+      saved.close.forEach(function (id) { want[id] = true; });
+      list = CARDS.filter(function (c) { return want[c.id]; });
+    }
+    if (kind !== "random" && shuffleOn) list = shuffle(list);
+    if (!list.length) return;
+    const useTimer = timerOn && list.length === 50;
+    deck = list;
+    index = 0;
+    marks = {};
+    streak = 0;
+    bestInSession = 0;
+    hinted = false;
+    revealed = false;
+    timedRound = useTimer;
+    now = Date.now();
+    startedAt = useTimer ? now : 0;
+    screen = "quiz";
+    render();
+  }
+
+  function goQuizHome() {
+    screen = "home";
+    deck = [];
+    index = 0;
+    hinted = false;
+    revealed = false;
+    timedRound = false;
+    startedAt = 0;
+    render();
+  }
+
+  function finishQuiz() {
+    if (Object.keys(marks).length === 0) {
+      goQuizHome();
+      return;
+    }
+    screen = "summary";
+    render();
+  }
+
+  function applyMark(m) {
+    const current = deck[index];
+    if (!current) return;
+    const id = current.id;
+    marks[id] = m;
+    const nextStreak = m === "got" ? streak + 1 : 0;
+    streak = nextStreak;
+    if (nextStreak > bestInSession) bestInSession = nextStreak;
+    saved.missed = saved.missed.filter(function (x) { return x !== id; });
+    saved.close = saved.close.filter(function (x) { return x !== id; });
+    if (m === "missed") saved.missed.push(id);
+    if (m === "close") saved.close.push(id);
+    if (nextStreak > saved.bestStreak) saved.bestStreak = nextStreak;
+    persist();
+    if (index + 1 >= deck.length) {
+      screen = "summary";
+    } else {
+      index += 1;
+      hinted = false;
+      revealed = false;
+    }
+    render();
+  }
+
+  function startMissed() {
+    kind = "missed";
+    const want = {};
+    saved.missed.forEach(function (id) { want[id] = true; });
+    saved.close.forEach(function (id) { want[id] = true; });
+    let list = CARDS.filter(function (c) { return want[c.id]; });
+    if (shuffleOn) list = shuffle(list);
+    if (!list.length) return;
+    deck = list;
+    index = 0;
+    marks = {};
+    streak = 0;
+    bestInSession = 0;
+    hinted = false;
+    revealed = false;
+    timedRound = false;
+    startedAt = 0;
+    screen = "quiz";
+    render();
+  }
+
+  function practiceItems() {
+    return CARDS.filter(function (c) { return c.exam === practiceExam; });
+  }
+
+  function practiceScore(items, answers) {
+    let n = 0;
+    items.forEach(function (it, i) {
+      if (answers[i] === it.ans) n += 1;
+    });
+    return n;
+  }
+
+  function resetPractice() {
+    saved.practice[practiceExam] = { answers: {}, submitted: false, startedAt: practiceTimerOn ? Date.now() : 0 };
+    practiceIndex = 0;
+    persist();
+    render();
+  }
+
+  function submitPractice() {
+    const prac = saved.practice[practiceExam];
+    prac.submitted = true;
+    practiceIndex = 0;
+    persist();
+    render();
+  }
+
+  function countsFromMarks() {
+    const ids = Object.keys(marks);
+    return {
+      got: ids.filter(function (id) { return marks[id] === "got"; }).length,
+      close: ids.filter(function (id) { return marks[id] === "close"; }).length,
+      missed: ids.filter(function (id) { return marks[id] === "missed"; }).length,
+      answered: ids.length
+    };
+  }
+
+  function topicSummary() {
+    const rows = [];
+    TOPIC_KEYS.forEach(function (k) {
+      const cards = deck.filter(function (c) { return c.topic === k && marks[c.id]; });
+      if (!cards.length) return;
+      const got = cards.filter(function (c) { return marks[c.id] === "got"; }).length;
+      const close = cards.filter(function (c) { return marks[c.id] === "close"; }).length;
+      const missed = cards.filter(function (c) { return marks[c.id] === "missed"; }).length;
+      rows.push({ k: k, total: cards.length, got: got, close: close, missed: missed, weak: missed + close });
+    });
+    rows.sort(function (a, b) { return b.weak - a.weak || a.got / a.total - b.got / b.total; });
+    return rows;
+  }
+
+  function practiceTopicRows(items, answers) {
+    const rows = [];
+    TOPIC_KEYS.forEach(function (k) {
+      const subset = items.filter(function (it) { return it.topic === k; });
+      if (!subset.length) return;
+      let right = 0;
+      subset.forEach(function (it) {
+        const i = items.indexOf(it);
+        if (answers[i] === it.ans) right += 1;
+      });
+      rows.push({ k: k, total: subset.length, right: right, missed: subset.length - right });
+    });
+    rows.sort(function (a, b) { return b.missed - a.missed || a.right / a.total - b.right / b.total; });
+    return rows;
+  }
+
+  function headerHtml() {
+    return (
+      '<div class="head-inner">' +
+        "<h1>Quiz Brian: Jamf 100</h1>" +
+        '<p class="tagline">A no-login study companion and four practice exams.</p>' +
+        '<div class="tabs" role="tablist">' +
+          '<button type="button" role="tab" aria-selected="' + (tab === "quiz") + '" data-act="tab-quiz">Quiz partner</button>' +
+          '<button type="button" role="tab" aria-selected="' + (tab === "practice") + '" data-act="tab-practice">Practice exams</button>' +
+        "</div>" +
+      "</div>"
+    );
+  }
+
+  function segHtml(name, options, value, actPrefix) {
+    return '<div class="seg" role="group">' + options.map(function (opt) {
+      const v = opt.value;
+      const label = opt.label + (opt.count != null ? " (" + opt.count + ")" : "");
+      return '<button type="button" aria-pressed="' + (value === v) + '" data-act="' + actPrefix + '" data-val="' + escapeHtml(String(v)) + '">' + escapeHtml(label) + "</button>";
+    }).join("") + "</div>";
+  }
+
+  function quizHomeHtml() {
+    const pile = pileCount();
+    const count = previewCount();
+    const timerAvailable = count === 50;
+    const kindOpts = [
+      { value: "exam", label: "Exam" },
+      { value: "section", label: "Section" },
+      { value: "random", label: "Random" }
+    ];
+    if (pile > 0) kindOpts.push({ value: "missed", label: "Missed", count: pile });
+    let extras = "";
+    if (kind === "exam") {
+      extras += segHtml("exam", [
+        { value: "A", label: "Exam A" },
+        { value: "B", label: "Exam B" },
+        { value: "C", label: "Exam C" },
+        { value: "D", label: "Exam D" }
+      ], exam, "set-exam");
+    }
+    if (kind === "section") {
+      extras += '<label class="field">Section <select data-act="set-section">' +
+        TOPIC_KEYS.map(function (k) {
+          return '<option value="' + k + '"' + (section === k ? " selected" : "") + ">" +
+            escapeHtml(TOPICS[k] + " (" + topicCount(k) + ")") + "</option>";
+        }).join("") + "</select></label>";
+    }
+    if (kind === "random") {
+      extras += segHtml("rand", [
+        { value: "10", label: "10 questions" },
+        { value: "25", label: "25 questions" },
+        { value: "50", label: "50 questions" }
+      ], String(randomSize), "set-random");
+    }
+    if (kind === "missed") {
+      extras += "<p>This deck is only the questions marked Missed or Close, so you can try them again.</p>";
+    }
+    const pileLine = pile > 0
+      ? "Choose how to quiz him. You have " + pile + " question" + (pile === 1 ? "" : "s") + " in the missed-and-close pile from earlier sessions, saved on this device."
+      : "Choose how to quiz him. You can use one of the four practice exams, one section, or a random short round.";
+    return (
+      "<h2>For Christine</h2>" +
+      "<p>This page is for you to quiz Brian on the Jamf Certified Associate (Jamf 100) material. You do not need to be technical. Read the question and the choices out loud, give him time, and only reveal the answer when he has had a try.</p>" +
+      '<div class="note"><strong>Practice, not the real exam.</strong> These 200 questions were written from the public Jamf 100 course outline and Jamf Pro documentation. They are not copied from the real exam. The real exam is 50 questions in 60 minutes (90 on the extended-time version), open-note, with a passing score of 40 out of 50 (80%). The exam was last revised October 1, 2026. Blueprint and compliance lessons were added to the course on November 6, 2026, after that revision, so they may not be on the exam yet.</div>' +
+      "<details open><summary>How to help Brian study</summary>" +
+        '<ol class="tips">' +
+          "<li><strong>Read the question and every choice out loud.</strong> Give him a moment to think before you jump in.</li>" +
+          "<li><strong>Ask him to explain why, not just pick a letter.</strong> A short explanation tells you whether he understands it or only recognized a familiar word.</li>" +
+          "<li><strong>If he is stuck, share the hint — not the answer.</strong> Tap Hint and read that nudge. Let him take another try before you reveal.</li>" +
+          "<li><strong>Reveal together, then talk through what it means.</strong> The plain-English note is for you to paraphrase, so the idea sticks.</li>" +
+          "<li><strong>Mark Got it, Close, or Missed honestly.</strong> Close means he almost had it. Missed and Close go on a pile you can quiz again later. Progress is saved on this device.</li>" +
+          "<li><strong>Use the session summary.</strong> It shows which sections were shaky. Spend the next round there, or open a practice exam if he wants a full 50-question test without hints.</li>" +
+        "</ol>" +
+      "</details>" +
+      "<details><summary>Quick glossary</summary>" +
+        "<p>Peek here if a word in a question is unfamiliar.</p>" +
+        "<dl>" +
+          "<dt>MDM</dt><dd>Mobile Device Management: the software (here, Jamf Pro) that lets an organization set up and manage Macs, iPhones, and iPads remotely.</dd>" +
+          "<dt>APNs</dt><dd>Apple Push Notification service: Apple's wake-up tap that tells a device to check in with Jamf Pro. It does not carry the actual management commands.</dd>" +
+          "<dt>Smart group</dt><dd>A list of devices that updates on its own from rules you set, such as “Macs with little free space.” Membership is not picked by hand.</dd>" +
+          "<dt>Policy</dt><dd>A Jamf Pro job for Macs that can install software, run a script, and more, when a trigger happens (for example, check-in or login).</dd>" +
+          "<dt>Configuration profile</dt><dd>A settings file (<code>.mobileconfig</code>) made of payloads that apply settings to a device, such as Wi-Fi or passcode rules, usually installed through MDM.</dd>" +
+          "<dt>PreStage enrollment</dt><dd>A Jamf Pro setup used with Automated Device Enrollment so organization-owned devices enroll and get settings during the first-run Setup Assistant.</dd>" +
+          "<dt>Inventory</dt><dd>The collected facts Jamf Pro stores about a device, such as the model, apps, and user. A Mac can be told to send an update right away with the <code>jamf recon</code> command.</dd>" +
+          "<dt>Extension attribute</dt><dd>An extra inventory field you add for something Jamf Pro does not collect by default, filled by a text field, a menu, a script, or a directory value.</dd>" +
+          "<dt>Self Service</dt><dd>The app users open to install approved apps or run IT-provided items themselves, grouped by categories you choose.</dd>" +
+          "<dt>Scope</dt><dd>The rules for who gets a policy or profile: targets (who is included), limitations (what narrows that list), and exclusions (who is left out). Exclusions always win.</dd>" +
+        "</dl>" +
+      "</details>" +
+      '<div class="card">' +
+        "<h2>Pick a deck</h2>" +
+        "<p>" + escapeHtml(pileLine) + "</p>" +
+        segHtml("kind", kindOpts, kind, "set-kind") +
+        extras +
+        '<label class="toggle"><input type="checkbox" data-act="toggle-shuffle"' + (shuffleOn ? " checked" : "") + "> Shuffle the cards</label>" +
+        (timerAvailable
+          ? '<label class="toggle"><input type="checkbox" data-act="toggle-timer"' + (timerOn ? " checked" : "") + "> 60-minute timer (the real exam length for 50 questions; this round ends at 0:00)</label>"
+          : "<p>A 60-minute timer is available only for a 50-question round, matching the real exam. Shorter rounds have no official time limit.</p>") +
+        (saved.bestStreak > 0 ? "<p>Longest Got it streak on this device: " + saved.bestStreak + ".</p>" : "") +
+        "<p>This deck has " + count + " question" + (count === 1 ? "" : "s") + ".</p>" +
+        '<div class="row"><button type="button" class="btn primary" data-act="start-quiz"' + (count === 0 ? " disabled" : "") + ">Start quiz</button></div>" +
+      "</div>"
+    );
+  }
+
+  function choiceLetter(it, oi) {
+    return it.opts.length === 2 ? (oi === 0 ? "T" : "F") : LETTERS[oi];
+  }
+
+  function quizCardHtml() {
+    const current = deck[index];
+    const c = countsFromMarks();
+    let choiceHtml = current.opts.map(function (o, oi) {
+      const isAns = oi === current.ans;
+      const cls = revealed && isAns ? " choice correct" : "choice";
+      return '<div class="' + cls + '"><span class="ltr">' + choiceLetter(current, oi) + "</span><span>" + rich(o) + "</span></div>";
+    }).join("");
+    return (
+      "<h2>Quiz Brian</h2>" +
+      '<div class="meta">Card ' + (index + 1) + " of " + deck.length + " · " + escapeHtml(TOPICS[current.topic]) + " · Exam " + current.exam + (current.opts.length === 2 ? " · True or false" : "") + "</div>" +
+      '<div class="bar"><span style="width:' + ((index / deck.length) * 100) + '%"></span></div>' +
+      '<div class="stats"><span>Got it ' + c.got + "</span><span>Close " + c.close + "</span><span>Missed " + c.missed + "</span><span>Streak " + streak + "</span></div>" +
+      '<div class="question">' + rich(current.q) + "</div>" +
+      '<div class="choices">' + choiceHtml + "</div>" +
+      (hinted ? '<div class="hint-box"><div class="kicker">Hint you can give</div><div>' + rich(current.hint) + "</div></div>" : "") +
+      (revealed
+        ? '<div class="ok-box"><div class="kicker">Answer: ' +
+          escapeHtml(current.opts.length === 2 ? current.opts[current.ans] : (choiceLetter(current, current.ans) + ". " + current.opts[current.ans])) +
+          "</div><p><strong>What this means. </strong>" + rich(toPlain(current.why)) + "</p></div>"
+        : "") +
+      '<div class="row">' +
+        (!hinted && !revealed && current.hint ? '<button type="button" class="btn" data-act="hint">Hint</button>' : "") +
+        (!revealed ? '<button type="button" class="btn primary" data-act="reveal">Reveal answer</button>' : "") +
+      "</div>" +
+      (revealed
+        ? '<div class="row">' +
+            '<button type="button" class="btn ok" data-act="mark" data-val="got">Got it</button>' +
+            '<button type="button" class="btn" data-act="mark" data-val="close">Close</button>' +
+            '<button type="button" class="btn" data-act="mark" data-val="missed">Missed</button>' +
+          "</div>"
+        : "")
+    );
+  }
+
+  function quizSummaryHtml() {
+    const c = countsFromMarks();
+    const rows = topicSummary();
+    const weak = rows.filter(function (r) { return r.weak > 0; });
+    const unreached = deck.length - c.answered;
+    let table = "";
+    if (rows.length) {
+      table = "<table><thead><tr><th>Section</th><th>Got it</th><th>Close</th><th>Missed</th></tr></thead><tbody>" +
+        rows.map(function (r) {
+          return "<tr><td>" + escapeHtml(TOPICS[r.k]) + "</td><td>" + r.got + "/" + r.total + "</td>" +
+            "<td" + (r.close ? ' class="warn"' : "") + ">" + r.close + "</td>" +
+            "<td" + (r.missed ? ' class="bad"' : "") + ">" + r.missed + "</td></tr>";
+        }).join("") + "</tbody></table>";
+    }
+    const advice = weak.length
+      ? "<p>Spend the next round on " + escapeHtml(weak.slice(0, 3).map(function (r) { return TOPICS[r.k]; }).join(", ")) +
+        ". Re-quiz the missed pile, or switch to a practice exam if he wants a full 50-question test without hints.</p>"
+      : "<p>He got every marked card in this round. Try another exam, a different section, or a longer random set.</p>";
+    return (
+      "<h2>Session summary</h2>" +
+      "<p>You went through " + c.answered + " of " + deck.length + " cards together. Below is how he did by section.</p>" +
+      (unreached > 0 ? "<p>" + unreached + " card" + (unreached === 1 ? " was" : "s were") + " not reached, so those are left out of the scores.</p>" : "") +
+      '<div class="metrics">' +
+        '<div class="metric ok"><div class="num">' + c.got + '</div><div class="lbl">Got it</div></div>' +
+        '<div class="metric"><div class="num">' + c.close + '</div><div class="lbl">Close</div></div>' +
+        '<div class="metric' + (c.missed ? " bad" : "") + '"><div class="num">' + c.missed + '</div><div class="lbl">Missed</div></div>' +
+        '<div class="metric"><div class="num">' + bestInSession + '</div><div class="lbl">Best streak</div></div>' +
+      "</div>" +
+      table +
+      advice +
+      '<div class="row">' +
+        (pileCount() > 0 ? '<button type="button" class="btn primary" data-act="quiz-missed">Quiz missed pile</button>' : "") +
+        '<button type="button" class="btn" data-act="quiz-home">Pick another deck</button>' +
+      "</div>"
+    );
+  }
+
+  function practiceHtml() {
+    const items = practiceItems();
+    const prac = saved.practice[practiceExam];
+    const answers = prac.answers;
+    const done = prac.submitted;
+    const answered = Object.keys(answers).length;
+    let body = "";
+    if (done) {
+      const score = practiceScore(items, answers);
+      const passed = score >= PASS;
+      const rows = practiceTopicRows(items, answers);
+      const shown = items.map(function (it, i) { return { it: it, i: i }; })
+        .filter(function (x) { return practiceFilter === "all" || answers[x.i] !== x.it.ans; });
+      const cur = shown.length ? shown[Math.min(practiceIndex, shown.length - 1)] : null;
+      body += '<div class="card">';
+      body += "<h2>Exam " + practiceExam + " results</h2>";
+      body += passed
+        ? '<p class="pass">Pass: ' + score + " of 50 is at or above the 40 needed.</p>"
+        : '<p class="fail">Not yet: ' + score + " of 50, and the real exam needs 40.</p>";
+      body += "<p>This is a practice score, not the real exam. The real exam pass mark is 40 of 50 (80%).</p>";
+      body += '<div class="metrics">' +
+        '<div class="metric' + (passed ? " ok" : " bad") + '"><div class="num">' + score + '/50</div><div class="lbl">Score</div></div>' +
+        '<div class="metric"><div class="num">' + Math.round((score / 50) * 100) + '%</div><div class="lbl">Percent</div></div>' +
+        '<div class="metric"><div class="num">' + (50 - score) + '</div><div class="lbl">Missed or blank</div></div>' +
+        "</div>";
+      body += "<table><thead><tr><th>Topic</th><th>Correct</th><th>Missed</th></tr></thead><tbody>" +
+        rows.map(function (r) {
+          return "<tr><td>" + escapeHtml(TOPICS[r.k]) + "</td><td>" + r.right + "/" + r.total + "</td>" +
+            "<td" + (r.missed ? ' class="bad"' : "") + ">" + r.missed + "</td></tr>";
+        }).join("") + "</tbody></table>";
+      body += segHtml("filter", [
+        { value: "missed", label: "Missed only", count: 50 - score },
+        { value: "all", label: "All questions", count: 50 }
+      ], practiceFilter, "set-filter");
+      if (cur) {
+        const it = cur.it;
+        const i = cur.i;
+        const chosen = answers[i];
+        const right = chosen === it.ans;
+        body += '<div class="meta">Question ' + (i + 1) + " of 50 · " + escapeHtml(TOPICS[it.topic]) +
+          (it.opts.length === 2 ? " · True or false" : "") +
+          ' · <span class="' + (right ? "pass" : "fail") + '">' + (chosen === undefined ? "Not answered" : right ? "Correct" : "Incorrect") + "</span></div>";
+        body += '<div class="question">' + rich(it.q) + "</div>";
+        body += '<div class="choices">' + it.opts.map(function (o, oi) {
+          const isAns = oi === it.ans;
+          const sel = chosen === oi;
+          let cls = "choice";
+          if (isAns) cls += " correct";
+          if (sel && !isAns) cls += " wrong";
+          return '<div class="' + cls + '"><span class="ltr">' + choiceLetter(it, oi) + "</span><span>" + rich(o) + "</span></div>";
+        }).join("") + "</div>";
+        body += '<div class="ok-box"><div class="kicker">Answer: ' +
+          escapeHtml(it.opts.length === 2 ? it.opts[it.ans] : (choiceLetter(it, it.ans) + ". " + it.opts[it.ans])) +
+          "</div><p>" + rich(toPlain(it.why)) + "</p></div>";
+        body += '<div class="row">' +
+          '<button type="button" class="btn" data-act="prac-prev"' + (practiceIndex <= 0 ? " disabled" : "") + ">Previous</button>" +
+          '<button type="button" class="btn" data-act="prac-next"' + (practiceIndex >= shown.length - 1 ? " disabled" : "") + ">Next</button>" +
+          "</div>";
+      } else {
+        body += "<p>Every question on this exam was answered correctly.</p>";
+      }
+      body += '<div class="row"><button type="button" class="btn" data-act="prac-reset">Reset this exam</button></div>';
+      body += "</div>";
+    } else {
+      const it = items[practiceIndex];
+      body += '<div class="card">';
+      body += "<h2>Exam " + practiceExam + "</h2>";
+      body += '<div class="meta">Question ' + (practiceIndex + 1) + " of 50 · " + escapeHtml(TOPICS[it.topic]) +
+        (it.opts.length === 2 ? " · True or false" : "") + "</div>";
+      body += '<div class="bar"><span style="width:' + ((practiceIndex / 50) * 100) + '%"></span></div>';
+      body += '<div class="question">' + rich(it.q) + "</div>";
+      body += '<div class="choices">' + it.opts.map(function (o, oi) {
+        const sel = answers[practiceIndex] === oi;
+        return '<button type="button" class="choice" aria-pressed="' + sel + '" data-act="prac-pick" data-val="' + oi + '"><span class="ltr">' +
+          choiceLetter(it, oi) + "</span><span>" + rich(o) + "</span></button>";
+      }).join("") + "</div>";
+      body += '<div class="row">' +
+        '<button type="button" class="btn" data-act="prac-prev"' + (practiceIndex <= 0 ? " disabled" : "") + ">Previous</button>" +
+        '<button type="button" class="btn primary" data-act="prac-next"' + (practiceIndex >= 49 ? " disabled" : "") + ">Next</button>" +
+        "</div>";
+      body += "<p>" + answered + " of 50 answered. You can move around and change answers until you submit.</p>";
+      body += "</div>";
+    }
+
+    return (
+      "<h2>Practice exams</h2>" +
+      "<p>Four original 50-question practice exams, scored against the real 80% pass mark, with an optional 60-minute timer. These are not questions from the real exam.</p>" +
+      "<h3>Choose an exam</h3>" +
+      segHtml("pexam", [
+        { value: "A", label: "Exam A" },
+        { value: "B", label: "Exam B" },
+        { value: "C", label: "Exam C" },
+        { value: "D", label: "Exam D" }
+      ], practiceExam, "set-prac-exam") +
+      (!done ? '<label class="toggle"><input type="checkbox" data-act="toggle-prac-timer"' + (practiceTimerOn ? " checked" : "") + "> 60-minute timer (submits automatically at 0:00)</label>" : "") +
+      "<details><summary>About the real exam</summary>" +
+        "<dl>" +
+          "<dt>Questions</dt><dd>50, multiple choice and true or false, one correct answer each</dd>" +
+          "<dt>Time limit</dt><dd>60 minutes, cannot be paused (90 minutes on the extended-time version)</dd>" +
+          "<dt>Passing score</dt><dd>80%, or 40 of 50</dd>" +
+          "<dt>Format</dt><dd>Online, open-note, open-book and open-internet</dd>" +
+          "<dt>Last revised</dt><dd>Exam revised October 1, 2026</dd>" +
+        "</dl>" +
+        "<p>Jamf does not publish how many questions come from each section, so the topic mix here is an estimate. Blueprint and compliance benchmark lessons were added to the course on November 6, 2026, after the exam’s last revision, so they may not be on the exam yet.</p>" +
+      "</details>" +
+      body
+    );
+  }
+
+  function dockHtml() {
+    if (tab === "quiz" && screen === "quiz") {
+      const c = countsFromMarks();
+      const left = timedRound ? " · <span id=\"timer-display\">" + mmss(remainingFor(startedAt)) + " left</span>" : "";
+      return '<div class="dock"><div class="dock-inner"><div class="status">' +
+        (index + 1) + "/" + deck.length + " · Got it " + c.got + " · Streak " + streak + left +
+        '</div><button type="button" class="btn" data-act="end-quiz">End session</button></div></div>';
+    }
+    if (tab === "practice") {
+      const prac = saved.practice[practiceExam];
+      if (prac.submitted) return "";
+      const answered = Object.keys(prac.answers).length;
+      const showTimer = practiceTimerOn && (prac.startedAt || true);
+      const left = (practiceTimerOn && prac.startedAt)
+        ? " · <span id=\"timer-display\">" + mmss(remainingFor(prac.startedAt)) + " left</span>"
+        : (practiceTimerOn ? " · <span id=\"timer-display\">60:00 left</span>" : "");
+      return '<div class="dock"><div class="dock-inner"><div class="status">Exam ' + practiceExam +
+        " · " + answered + "/50 answered" + left +
+        '</div><button type="button" class="btn primary" data-act="prac-submit">Submit</button>' +
+        '<button type="button" class="btn" data-act="prac-reset">Reset</button></div></div>';
+    }
+    return "";
+  }
+
+  function render() {
+    ensureTicker();
+    document.querySelector("header.app-head").innerHTML = headerHtml();
+    let html = "";
+    if (tab === "quiz") {
+      if (screen === "home") html = quizHomeHtml();
+      else if (screen === "quiz") html = quizCardHtml();
+      else html = quizSummaryHtml();
+    } else {
+      html = practiceHtml();
+    }
+    document.getElementById("app").innerHTML = html;
+    const dock = document.getElementById("dock");
+    dock.innerHTML = dockHtml();
+    window.scrollTo(0, 0);
+  }
+
+  function onClick(e) {
+    const btn = e.target.closest("[data-act]");
+    if (!btn) return;
+    const act = btn.getAttribute("data-act");
+    const val = btn.getAttribute("data-val");
+    if (btn.tagName === "SELECT" || (btn.tagName === "INPUT" && btn.type === "checkbox")) return;
+    if (act === "tab-quiz") { tab = "quiz"; render(); return; }
+    if (act === "tab-practice") { tab = "practice"; render(); return; }
+    if (act === "set-kind") { kind = val; render(); return; }
+    if (act === "set-exam") { exam = val; render(); return; }
+    if (act === "set-random") { randomSize = Number(val); render(); return; }
+    if (act === "start-quiz") { startQuiz(); return; }
+    if (act === "hint") { hinted = true; render(); return; }
+    if (act === "reveal") { revealed = true; render(); return; }
+    if (act === "mark") { applyMark(val); return; }
+    if (act === "end-quiz") { finishQuiz(); return; }
+    if (act === "quiz-home") { goQuizHome(); return; }
+    if (act === "quiz-missed") { startMissed(); return; }
+    if (act === "set-prac-exam") {
+      practiceExam = val;
+      practiceIndex = 0;
+      const prac = saved.practice[practiceExam];
+      if (practiceTimerOn && !prac.submitted && !prac.startedAt) {
+        prac.startedAt = Date.now();
+        persist();
+      }
+      render();
+      return;
+    }
+    if (act === "set-filter") { practiceFilter = val; practiceIndex = 0; render(); return; }
+    if (act === "prac-pick") {
+      const prac = saved.practice[practiceExam];
+      if (prac.submitted) return;
+      prac.answers[practiceIndex] = Number(val);
+      if (practiceTimerOn && !prac.startedAt) prac.startedAt = Date.now();
+      persist();
+      render();
+      return;
+    }
+    if (act === "prac-prev") {
+      if (saved.practice[practiceExam].submitted) {
+        practiceIndex = Math.max(0, practiceIndex - 1);
+      } else {
+        practiceIndex = Math.max(0, practiceIndex - 1);
+      }
+      render();
+      return;
+    }
+    if (act === "prac-next") {
+      if (saved.practice[practiceExam].submitted) {
+        practiceIndex += 1;
+      } else {
+        practiceIndex = Math.min(49, practiceIndex + 1);
+      }
+      render();
+      return;
+    }
+    if (act === "prac-submit") { submitPractice(); return; }
+    if (act === "prac-reset") { resetPractice(); return; }
+  }
+
+  function onChange(e) {
+    const el = e.target.closest("[data-act]");
+    if (!el) return;
+    const act = el.getAttribute("data-act");
+    if (act === "toggle-shuffle") { shuffleOn = el.checked; return; }
+    if (act === "toggle-timer") { timerOn = el.checked; return; }
+    if (act === "set-section") { section = el.value; render(); return; }
+    if (act === "toggle-prac-timer") {
+      practiceTimerOn = el.checked;
+      now = Date.now();
+      const prac = saved.practice[practiceExam];
+      if (practiceTimerOn && !prac.submitted && !prac.startedAt) {
+        prac.startedAt = Date.now();
+        persist();
+      }
+      render();
+    }
+  }
+
+  document.addEventListener("click", onClick);
+  document.addEventListener("change", onChange);
+  render();
+})();
+
+  </script>
+</body>
+</html>
